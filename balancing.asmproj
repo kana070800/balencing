@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>7.0</ProjectVersion>
+    <ToolchainName>com.Atmel.AVRAssembler</ToolchainName>
+    <ProjectGuid>59B1D629-9DCC-43ed-A0FD-8AB0E4D622AB</ProjectGuid>
+    <avrdeviceseries>none</avrdeviceseries>
+    <avrdevice>ATmega128</avrdevice>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.obj</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <Language>ASSEMBLY</Language>
+    <AssemblyName>balancing</AssemblyName>
+    <Name>balancing</Name>
+    <RootNamespace>balancing</RootNamespace>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <EntryFile>$(MSBuildProjectDirectory)\test_move.asm</EntryFile>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <CacheFlash>true</CacheFlash>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
+    <UncachedRange />
+    <preserveEEPROM>true</preserveEEPROM>
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
+    <BootSegment>2</BootSegment>
+    <ResetRule>0</ResetRule>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
+    <EraseKey />
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <avrtoolserialnumber />
+    <avrdeviceexpectedsignature>0x1E9702</avrdeviceexpectedsignature>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+      </ToolOptions>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Simulator</ToolName>
+    </com_atmel_avrdbg_tool_simulator>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrAssembler>
+        <avrasm.assembler.general.AdditionalIncludeDirectories>
+          <ListValues>
+            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.7.374\avrasm\inc</Value>
+          </ListValues>
+        </avrasm.assembler.general.AdditionalIncludeDirectories>
+        <avrasm.assembler.general.IncludeFile>m128def.inc</avrasm.assembler.general.IncludeFile>
+      </AvrAssembler>
+    </ToolchainSettings>
+    <OutputType>Executable</OutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrAssembler>
+        <avrasm.assembler.general.AdditionalIncludeDirectories>
+          <ListValues>
+            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.7.374\avrasm\inc</Value>
+          </ListValues>
+        </avrasm.assembler.general.AdditionalIncludeDirectories>
+        <avrasm.assembler.general.IncludeFile>m128def.inc</avrasm.assembler.general.IncludeFile>
+      </AvrAssembler>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ADC.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AsmFile_test.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="bluetooth_test.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="deg_duty_gen.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="deg_gen_gyro_1.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Delay.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="deg_gen_gyro.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EXint.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FND.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="I2C.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="I2C2.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PWM2MOTER.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="moterpwm.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="mpu6xxx.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Myinclude.inc">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_error.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_LPF_1030.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_LPF_10.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_LPF_30.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_move.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Timer.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UART1io.asm">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UARTio.asm">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Assembler.targets" />
+</Project>

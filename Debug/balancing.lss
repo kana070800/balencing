@@ -1,0 +1,3710 @@
+
+AVRASM ver. 2.2.8  F:\AVR_projects\balancing\balancing\test_move.asm Wed Aug 06 23:05:32 2025
+
+[builtin](2): Including file 'F:/7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m128def.inc'
+F:\AVR_projects\balancing\balancing\test_move.asm(7): Including file 'F:\AVR_projects\balancing\balancing\Myinclude.inc'
+F:\AVR_projects\balancing\balancing\test_move.asm(201): Including file 'F:\AVR_projects\balancing\balancing\UART1io.asm'
+F:\AVR_projects\balancing\balancing\test_move.asm(202): Including file 'F:\AVR_projects\balancing\balancing\I2C2.asm'
+F:\AVR_projects\balancing\balancing\test_move.asm(203): Including file 'F:\AVR_projects\balancing\balancing\Timer.asm'
+F:\AVR_projects\balancing\balancing\test_move.asm(204): Including file 'F:\AVR_projects\balancing\balancing\EXint.asm'
+F:\AVR_projects\balancing\balancing\test_move.asm(205): Including file 'F:\AVR_projects\balancing\balancing\Delay.asm'
+[builtin](2): Including file 'F:/7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m128def.inc'
+F:\AVR_projects\balancing\balancing\test_move.asm(7): Including file 'F:\AVR_projects\balancing\balancing\Myinclude.inc'
+F:\AVR_projects\balancing\balancing\test_move.asm(201): Including file 'F:\AVR_projects\balancing\balancing\UART1io.asm'
+F:\AVR_projects\balancing\balancing\test_move.asm(202): Including file 'F:\AVR_projects\balancing\balancing\I2C2.asm'
+F:\AVR_projects\balancing\balancing\test_move.asm(203): Including file 'F:\AVR_projects\balancing\balancing\Timer.asm'
+F:\AVR_projects\balancing\balancing\test_move.asm(204): Including file 'F:\AVR_projects\balancing\balancing\EXint.asm'
+F:\AVR_projects\balancing\balancing\test_move.asm(205): Including file 'F:\AVR_projects\balancing\balancing\Delay.asm'
+                                 
+                                 /*
+                                 
+                                 ;***** Created: 2011-02-09 12:03 ******* Source: ATmega128.xml ***********
+                                 ;*************************************************************************
+                                 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
+                                 ;* 
+                                 ;* Number            : AVR000
+                                 ;* File Name         : "m128def.inc"
+                                 ;* Title             : Register/Bit Definitions for the ATmega128
+                                 ;* Date              : 2011-02-09
+                                 ;* Version           : 2.35
+                                 ;* Support E-mail    : avr@atmel.com
+                                 ;* Target MCU        : ATmega128
+                                 ;* 
+                                 ;* DESCRIPTION
+                                 ;* When including this file in the assembly program file, all I/O register 
+                                 ;* names and I/O register bit names appearing in the data book can be used.
+                                 ;* In addition, the six registers forming the three data pointers X, Y and 
+                                 ;* Z have been assigned names XL - ZH. Highest RAM address for Internal 
+                                 ;* SRAM is also defined 
+                                 ;* 
+                                 ;* The Register names are represented by their hexadecimal address.
+                                 ;* 
+                                 ;* The Register Bit names are represented by their bit number (0-7).
+                                 ;* 
+                                 ;* Please observe the difference in using the bit names with instructions
+                                 ;* such as "sbr"/"cbr" (set/clear bit in register) and "sbrs"/"sbrc"
+                                 ;* (skip if bit in register set/cleared). The following example illustrates
+                                 ;* this:
+                                 ;* 
+                                 ;* in    r16,PORTB             ;read PORTB latch
+                                 ;* sbr   r16,(1<<PB6)+(1<<PB5) ;set PB6 and PB5 (use masks, not bit#)
+                                 ;* out   PORTB,r16             ;output to PORTB
+                                 ;* 
+                                 ;* in    r16,TIFR              ;read the Timer Interrupt Flag Register
+                                 ;* sbrc  r16,TOV0              ;test the overflow flag (use bit#)
+                                 ;* rjmp  TOV0_is_set           ;jump if set
+                                 ;* ...                         ;otherwise do something else
+                                 ;*************************************************************************
+                                 
+                                 #ifndef _M128DEF_INC_
+                                 #define _M128DEF_INC_
+                                 
+                                 
+                                 #pragma partinc 0
+                                 
+                                 ; ***** SPECIFY DEVICE ***************************************************
+                                 .device ATmega128
+                                 #pragma AVRPART ADMIN PART_NAME ATmega128
+                                 .equ	SIGNATURE_000	= 0x1e
+                                 .equ	SIGNATURE_001	= 0x97
+                                 .equ	SIGNATURE_002	= 0x02
+                                 
+                                 #pragma AVRPART CORE CORE_VERSION V2E
+                                 
+                                 
+                                 ; ***** I/O REGISTER DEFINITIONS *****************************************
+                                 ; NOTE:
+                                 ; Definitions marked "MEMORY MAPPED"are extended I/O ports
+                                 ; and cannot be used with IN/OUT instructions
+                                 .equ	UCSR1C	= 0x9d	; MEMORY MAPPED
+                                 .equ	UDR1	= 0x9c	; MEMORY MAPPED
+                                 .equ	UCSR1A	= 0x9b	; MEMORY MAPPED
+                                 .equ	UCSR1B	= 0x9a	; MEMORY MAPPED
+                                 .equ	UBRR1H	= 0x98	; MEMORY MAPPED
+                                 .equ	UBRR1L	= 0x99	; MEMORY MAPPED
+                                 .equ	UCSR0C	= 0x95	; MEMORY MAPPED
+                                 .equ	UBRR0H	= 0x90	; MEMORY MAPPED
+                                 .equ	TCCR3C	= 0x8c	; MEMORY MAPPED
+                                 .equ	TCCR3A	= 0x8b	; MEMORY MAPPED
+                                 .equ	TCCR3B	= 0x8a	; MEMORY MAPPED
+                                 .equ	TCNT3L	= 0x88	; MEMORY MAPPED
+                                 .equ	TCNT3H	= 0x89	; MEMORY MAPPED
+                                 .equ	OCR3AL	= 0x86	; MEMORY MAPPED
+                                 .equ	OCR3AH	= 0x87	; MEMORY MAPPED
+                                 .equ	OCR3BL	= 0x84	; MEMORY MAPPED
+                                 .equ	OCR3BH	= 0x85	; MEMORY MAPPED
+                                 .equ	OCR3CL	= 0x82	; MEMORY MAPPED
+                                 .equ	OCR3CH	= 0x83	; MEMORY MAPPED
+                                 .equ	ICR3L	= 0x80	; MEMORY MAPPED
+                                 .equ	ICR3H	= 0x81	; MEMORY MAPPED
+                                 .equ	ETIMSK	= 0x7d	; MEMORY MAPPED
+                                 .equ	ETIFR	= 0x7c	; MEMORY MAPPED
+                                 .equ	TCCR1C	= 0x7a	; MEMORY MAPPED
+                                 .equ	OCR1CL	= 0x78	; MEMORY MAPPED
+                                 .equ	OCR1CH	= 0x79	; MEMORY MAPPED
+                                 .equ	TWCR	= 0x74	; MEMORY MAPPED
+                                 .equ	TWDR	= 0x73	; MEMORY MAPPED
+                                 .equ	TWAR	= 0x72	; MEMORY MAPPED
+                                 .equ	TWSR	= 0x71	; MEMORY MAPPED
+                                 .equ	TWBR	= 0x70	; MEMORY MAPPED
+                                 .equ	OSCCAL	= 0x6f	; MEMORY MAPPED
+                                 .equ	XMCRA	= 0x6d	; MEMORY MAPPED
+                                 .equ	XMCRB	= 0x6c	; MEMORY MAPPED
+                                 .equ	EICRA	= 0x6a	; MEMORY MAPPED
+                                 .equ	SPMCSR	= 0x68	; MEMORY MAPPED
+                                 .equ	PORTG	= 0x65	; MEMORY MAPPED
+                                 .equ	DDRG	= 0x64	; MEMORY MAPPED
+                                 .equ	PING	= 0x63	; MEMORY MAPPED
+                                 .equ	PORTF	= 0x62	; MEMORY MAPPED
+                                 .equ	DDRF	= 0x61	; MEMORY MAPPED
+                                 .equ	SREG	= 0x3f
+                                 .equ	SPL	= 0x3d
+                                 .equ	SPH	= 0x3e
+                                 .equ	XDIV	= 0x3c
+                                 .equ	RAMPZ	= 0x3b
+                                 .equ	EICRB	= 0x3a
+                                 .equ	EIMSK	= 0x39
+                                 .equ	EIFR	= 0x38
+                                 .equ	TIMSK	= 0x37
+                                 .equ	TIFR	= 0x36
+                                 .equ	MCUCR	= 0x35
+                                 .equ	MCUCSR	= 0x34
+                                 .equ	TCCR0	= 0x33
+                                 .equ	TCNT0	= 0x32
+                                 .equ	OCR0	= 0x31
+                                 .equ	ASSR	= 0x30
+                                 .equ	TCCR1A	= 0x2f
+                                 .equ	TCCR1B	= 0x2e
+                                 .equ	TCNT1L	= 0x2c
+                                 .equ	TCNT1H	= 0x2d
+                                 .equ	OCR1AL	= 0x2a
+                                 .equ	OCR1AH	= 0x2b
+                                 .equ	OCR1BL	= 0x28
+                                 .equ	OCR1BH	= 0x29
+                                 .equ	ICR1L	= 0x26
+                                 .equ	ICR1H	= 0x27
+                                 .equ	TCCR2	= 0x25
+                                 .equ	TCNT2	= 0x24
+                                 .equ	OCR2	= 0x23
+                                 .equ	OCDR	= 0x22
+                                 .equ	WDTCR	= 0x21
+                                 .equ	SFIOR	= 0x20
+                                 .equ	EEARL	= 0x1e
+                                 .equ	EEARH	= 0x1f
+                                 .equ	EEDR	= 0x1d
+                                 .equ	EECR	= 0x1c
+                                 .equ	PORTA	= 0x1b
+                                 .equ	DDRA	= 0x1a
+                                 .equ	PINA	= 0x19
+                                 .equ	PORTB	= 0x18
+                                 .equ	DDRB	= 0x17
+                                 .equ	PINB	= 0x16
+                                 .equ	PORTC	= 0x15
+                                 .equ	DDRC	= 0x14
+                                 .equ	PINC	= 0x13
+                                 .equ	PORTD	= 0x12
+                                 .equ	DDRD	= 0x11
+                                 .equ	PIND	= 0x10
+                                 .equ	SPDR	= 0x0f
+                                 .equ	SPSR	= 0x0e
+                                 .equ	SPCR	= 0x0d
+                                 .equ	UDR0	= 0x0c
+                                 .equ	UCSR0A	= 0x0b
+                                 .equ	UCSR0B	= 0x0a
+                                 .equ	UBRR0L	= 0x09
+                                 .equ	ACSR	= 0x08
+                                 .equ	ADMUX	= 0x07
+                                 .equ	ADCSRA	= 0x06
+                                 .equ	ADCH	= 0x05
+                                 .equ	ADCL	= 0x04
+                                 .equ	PORTE	= 0x03
+                                 .equ	DDRE	= 0x02
+                                 .equ	PINE	= 0x01
+                                 .equ	PINF	= 0x00
+                                 
+                                 
+                                 ; ***** BIT DEFINITIONS **************************************************
+                                 
+                                 ; ***** ANALOG_COMPARATOR ************
+                                 ; SFIOR - Special Function IO Register
+                                 .equ	ACME	= 3	; Analog Comparator Multiplexer Enable
+                                 
+                                 ; ACSR - Analog Comparator Control And Status Register
+                                 .equ	ACIS0	= 0	; Analog Comparator Interrupt Mode Select bit 0
+                                 .equ	ACIS1	= 1	; Analog Comparator Interrupt Mode Select bit 1
+                                 .equ	ACIC	= 2	; Analog Comparator Input Capture Enable
+                                 .equ	ACIE	= 3	; Analog Comparator Interrupt Enable
+                                 .equ	ACI	= 4	; Analog Comparator Interrupt Flag
+                                 .equ	ACO	= 5	; Analog Compare Output
+                                 .equ	ACBG	= 6	; Analog Comparator Bandgap Select
+                                 .equ	ACD	= 7	; Analog Comparator Disable
+                                 
+                                 
+                                 ; ***** SPI **************************
+                                 ; SPDR - SPI Data Register
+                                 .equ	SPDR0	= 0	; SPI Data Register bit 0
+                                 .equ	SPDR1	= 1	; SPI Data Register bit 1
+                                 .equ	SPDR2	= 2	; SPI Data Register bit 2
+                                 .equ	SPDR3	= 3	; SPI Data Register bit 3
+                                 .equ	SPDR4	= 4	; SPI Data Register bit 4
+                                 .equ	SPDR5	= 5	; SPI Data Register bit 5
+                                 .equ	SPDR6	= 6	; SPI Data Register bit 6
+                                 .equ	SPDR7	= 7	; SPI Data Register bit 7
+                                 
+                                 ; SPSR - SPI Status Register
+                                 .equ	SPI2X	= 0	; Double SPI Speed Bit
+                                 .equ	WCOL	= 6	; Write Collision Flag
+                                 .equ	SPIF	= 7	; SPI Interrupt Flag
+                                 
+                                 ; SPCR - SPI Control Register
+                                 .equ	SPR0	= 0	; SPI Clock Rate Select 0
+                                 .equ	SPR1	= 1	; SPI Clock Rate Select 1
+                                 .equ	CPHA	= 2	; Clock Phase
+                                 .equ	CPOL	= 3	; Clock polarity
+                                 .equ	MSTR	= 4	; Master/Slave Select
+                                 .equ	DORD	= 5	; Data Order
+                                 .equ	SPE	= 6	; SPI Enable
+                                 .equ	SPIE	= 7	; SPI Interrupt Enable
+                                 
+                                 
+                                 ; ***** TWI **************************
+                                 ; TWBR - TWI Bit Rate register
+                                 .equ	I2BR	= TWBR	; For compatibility
+                                 .equ	TWBR0	= 0	; 
+                                 .equ	TWBR1	= 1	; 
+                                 .equ	TWBR2	= 2	; 
+                                 .equ	TWBR3	= 3	; 
+                                 .equ	TWBR4	= 4	; 
+                                 .equ	TWBR5	= 5	; 
+                                 .equ	TWBR6	= 6	; 
+                                 .equ	TWBR7	= 7	; 
+                                 
+                                 ; TWCR - TWI Control Register
+                                 .equ	I2CR	= TWCR	; For compatibility
+                                 .equ	TWIE	= 0	; TWI Interrupt Enable
+                                 .equ	I2IE	= TWIE	; For compatibility
+                                 .equ	TWEN	= 2	; TWI Enable Bit
+                                 .equ	I2EN	= TWEN	; For compatibility
+                                 .equ	ENI2C	= TWEN	; For compatibility
+                                 .equ	TWWC	= 3	; TWI Write Collition Flag
+                                 .equ	I2WC	= TWWC	; For compatibility
+                                 .equ	TWSTO	= 4	; TWI Stop Condition Bit
+                                 .equ	I2STO	= TWSTO	; For compatibility
+                                 .equ	TWSTA	= 5	; TWI Start Condition Bit
+                                 .equ	I2STA	= TWSTA	; For compatibility
+                                 .equ	TWEA	= 6	; TWI Enable Acknowledge Bit
+                                 .equ	I2EA	= TWEA	; For compatibility
+                                 .equ	TWINT	= 7	; TWI Interrupt Flag
+                                 .equ	I2INT	= TWINT	; For compatibility
+                                 
+                                 ; TWSR - TWI Status Register
+                                 .equ	I2SR	= TWSR	; For compatibility
+                                 .equ	TWPS0	= 0	; TWI Prescaler
+                                 .equ	TWS0	= TWPS0	; For compatibility
+                                 .equ	I2GCE	= TWPS0	; For compatibility
+                                 .equ	TWPS1	= 1	; TWI Prescaler
+                                 .equ	TWS1	= TWPS1	; For compatibility
+                                 .equ	TWS3	= 3	; TWI Status
+                                 .equ	I2S3	= TWS3	; For compatibility
+                                 .equ	TWS4	= 4	; TWI Status
+                                 .equ	I2S4	= TWS4	; For compatibility
+                                 .equ	TWS5	= 5	; TWI Status
+                                 .equ	I2S5	= TWS5	; For compatibility
+                                 .equ	TWS6	= 6	; TWI Status
+                                 .equ	I2S6	= TWS6	; For compatibility
+                                 .equ	TWS7	= 7	; TWI Status
+                                 .equ	I2S7	= TWS7	; For compatibility
+                                 
+                                 ; TWDR - TWI Data register
+                                 .equ	I2DR	= TWDR	; For compatibility
+                                 .equ	TWD0	= 0	; TWI Data Register Bit 0
+                                 .equ	TWD1	= 1	; TWI Data Register Bit 1
+                                 .equ	TWD2	= 2	; TWI Data Register Bit 2
+                                 .equ	TWD3	= 3	; TWI Data Register Bit 3
+                                 .equ	TWD4	= 4	; TWI Data Register Bit 4
+                                 .equ	TWD5	= 5	; TWI Data Register Bit 5
+                                 .equ	TWD6	= 6	; TWI Data Register Bit 6
+                                 .equ	TWD7	= 7	; TWI Data Register Bit 7
+                                 
+                                 ; TWAR - TWI (Slave) Address register
+                                 .equ	I2AR	= TWAR	; For compatibility
+                                 .equ	TWGCE	= 0	; TWI General Call Recognition Enable Bit
+                                 .equ	TWA0	= 1	; TWI (Slave) Address register Bit 0
+                                 .equ	TWA1	= 2	; TWI (Slave) Address register Bit 1
+                                 .equ	TWA2	= 3	; TWI (Slave) Address register Bit 2
+                                 .equ	TWA3	= 4	; TWI (Slave) Address register Bit 3
+                                 .equ	TWA4	= 5	; TWI (Slave) Address register Bit 4
+                                 .equ	TWA5	= 6	; TWI (Slave) Address register Bit 5
+                                 .equ	TWA6	= 7	; TWI (Slave) Address register Bit 6
+                                 
+                                 
+                                 ; ***** USART0 ***********************
+                                 ; UDR0 - USART I/O Data Register
+                                 .equ	UDR00	= 0	; USART I/O Data Register bit 0
+                                 .equ	UDR01	= 1	; USART I/O Data Register bit 1
+                                 .equ	UDR02	= 2	; USART I/O Data Register bit 2
+                                 .equ	UDR03	= 3	; USART I/O Data Register bit 3
+                                 .equ	UDR04	= 4	; USART I/O Data Register bit 4
+                                 .equ	UDR05	= 5	; USART I/O Data Register bit 5
+                                 .equ	UDR06	= 6	; USART I/O Data Register bit 6
+                                 .equ	UDR07	= 7	; USART I/O Data Register bit 7
+                                 
+                                 ; UCSR0A - USART Control and Status Register A
+                                 .equ	MPCM0	= 0	; Multi-processor Communication Mode
+                                 .equ	U2X0	= 1	; Double the USART transmission speed
+                                 .equ	UPE0	= 2	; Parity Error
+                                 .equ	DOR0	= 3	; Data overRun
+                                 .equ	FE0	= 4	; Framing Error
+                                 .equ	UDRE0	= 5	; USART Data Register Empty
+                                 .equ	TXC0	= 6	; USART Transmitt Complete
+                                 .equ	RXC0	= 7	; USART Receive Complete
+                                 
+                                 ; UCSR0B - USART Control and Status Register B
+                                 .equ	TXB80	= 0	; Transmit Data Bit 8
+                                 .equ	RXB80	= 1	; Receive Data Bit 8
+                                 .equ	UCSZ02	= 2	; Character Size
+                                 .equ	UCSZ2	= UCSZ02	; For compatibility
+                                 .equ	TXEN0	= 3	; Transmitter Enable
+                                 .equ	RXEN0	= 4	; Receiver Enable
+                                 .equ	UDRIE0	= 5	; USART Data register Empty Interrupt Enable
+                                 .equ	TXCIE0	= 6	; TX Complete Interrupt Enable
+                                 .equ	RXCIE0	= 7	; RX Complete Interrupt Enable
+                                 
+                                 ; UCSR0C - USART Control and Status Register C
+                                 .equ	UCPOL0	= 0	; Clock Polarity
+                                 .equ	UCSZ00	= 1	; Character Size
+                                 .equ	UCSZ01	= 2	; Character Size
+                                 .equ	USBS0	= 3	; Stop Bit Select
+                                 .equ	UPM00	= 4	; Parity Mode Bit 0
+                                 .equ	UPM01	= 5	; Parity Mode Bit 1
+                                 .equ	UMSEL0	= 6	; USART Mode Select
+                                 
+                                 ; UBRR0H - USART Baud Rate Register Hight Byte
+                                 .equ	UBRR8	= 0	; USART Baud Rate Register bit 8
+                                 .equ	UBRR9	= 1	; USART Baud Rate Register bit 9
+                                 .equ	UBRR10	= 2	; USART Baud Rate Register bit 10
+                                 .equ	UBRR11	= 3	; USART Baud Rate Register bit 11
+                                 
+                                 ; UBRR0L - USART Baud Rate Register Low Byte
+                                 .equ	UBRR0	= 0	; USART Baud Rate Register bit 0
+                                 .equ	UBRR1	= 1	; USART Baud Rate Register bit 1
+                                 .equ	UBRR2	= 2	; USART Baud Rate Register bit 2
+                                 .equ	UBRR3	= 3	; USART Baud Rate Register bit 3
+                                 .equ	UBRR4	= 4	; USART Baud Rate Register bit 4
+                                 .equ	UBRR5	= 5	; USART Baud Rate Register bit 5
+                                 .equ	UBRR6	= 6	; USART Baud Rate Register bit 6
+                                 .equ	UBRR7	= 7	; USART Baud Rate Register bit 7
+                                 
+                                 
+                                 ; ***** USART1 ***********************
+                                 ; UDR1 - USART I/O Data Register
+                                 .equ	UDR10	= 0	; USART I/O Data Register bit 0
+                                 .equ	UDR11	= 1	; USART I/O Data Register bit 1
+                                 .equ	UDR12	= 2	; USART I/O Data Register bit 2
+                                 .equ	UDR13	= 3	; USART I/O Data Register bit 3
+                                 .equ	UDR14	= 4	; USART I/O Data Register bit 4
+                                 .equ	UDR15	= 5	; USART I/O Data Register bit 5
+                                 .equ	UDR16	= 6	; USART I/O Data Register bit 6
+                                 .equ	UDR17	= 7	; USART I/O Data Register bit 7
+                                 
+                                 ; UCSR1A - USART Control and Status Register A
+                                 .equ	MPCM1	= 0	; Multi-processor Communication Mode
+                                 .equ	U2X1	= 1	; Double the USART transmission speed
+                                 .equ	UPE1	= 2	; Parity Error
+                                 .equ	DOR1	= 3	; Data overRun
+                                 .equ	FE1	= 4	; Framing Error
+                                 .equ	UDRE1	= 5	; USART Data Register Empty
+                                 .equ	TXC1	= 6	; USART Transmitt Complete
+                                 .equ	RXC1	= 7	; USART Receive Complete
+                                 
+                                 ; UCSR1B - USART Control and Status Register B
+                                 .equ	TXB81	= 0	; Transmit Data Bit 8
+                                 .equ	RXB81	= 1	; Receive Data Bit 8
+                                 .equ	UCSZ12	= 2	; Character Size
+                                 .equ	TXEN1	= 3	; Transmitter Enable
+                                 .equ	RXEN1	= 4	; Receiver Enable
+                                 .equ	UDRIE1	= 5	; USART Data register Empty Interrupt Enable
+                                 .equ	TXCIE1	= 6	; TX Complete Interrupt Enable
+                                 .equ	RXCIE1	= 7	; RX Complete Interrupt Enable
+                                 
+                                 ; UCSR1C - USART Control and Status Register C
+                                 .equ	UCPOL1	= 0	; Clock Polarity
+                                 .equ	UCSZ10	= 1	; Character Size
+                                 .equ	UCSZ11	= 2	; Character Size
+                                 .equ	USBS1	= 3	; Stop Bit Select
+                                 .equ	UPM10	= 4	; Parity Mode Bit 0
+                                 .equ	UPM11	= 5	; Parity Mode Bit 1
+                                 .equ	UMSEL1	= 6	; USART Mode Select
+                                 
+                                 ; UBRR1H - USART Baud Rate Register Hight Byte
+                                 ;.equ	UBRR8	= 0	; USART Baud Rate Register bit 8
+                                 ;.equ	UBRR9	= 1	; USART Baud Rate Register bit 9
+                                 ;.equ	UBRR10	= 2	; USART Baud Rate Register bit 10
+                                 ;.equ	UBRR11	= 3	; USART Baud Rate Register bit 11
+                                 
+                                 ; UBRR1L - USART Baud Rate Register Low Byte
+                                 ;.equ	UBRR0	= 0	; USART Baud Rate Register bit 0
+                                 ;.equ	UBRR1	= 1	; USART Baud Rate Register bit 1
+                                 ;.equ	UBRR2	= 2	; USART Baud Rate Register bit 2
+                                 ;.equ	UBRR3	= 3	; USART Baud Rate Register bit 3
+                                 ;.equ	UBRR4	= 4	; USART Baud Rate Register bit 4
+                                 ;.equ	UBRR5	= 5	; USART Baud Rate Register bit 5
+                                 ;.equ	UBRR6	= 6	; USART Baud Rate Register bit 6
+                                 ;.equ	UBRR7	= 7	; USART Baud Rate Register bit 7
+                                 
+                                 
+                                 ; ***** CPU **************************
+                                 ; SREG - Status Register
+                                 .equ	SREG_C	= 0	; Carry Flag
+                                 .equ	SREG_Z	= 1	; Zero Flag
+                                 .equ	SREG_N	= 2	; Negative Flag
+                                 .equ	SREG_V	= 3	; Two's Complement Overflow Flag
+                                 .equ	SREG_S	= 4	; Sign Bit
+                                 .equ	SREG_H	= 5	; Half Carry Flag
+                                 .equ	SREG_T	= 6	; Bit Copy Storage
+                                 .equ	SREG_I	= 7	; Global Interrupt Enable
+                                 
+                                 ; MCUCR - MCU Control Register
+                                 .equ	IVCE	= 0	; Interrupt Vector Change Enable
+                                 .equ	IVSEL	= 1	; Interrupt Vector Select
+                                 .equ	SM2	= 2	; Sleep Mode Select
+                                 .equ	SM0	= 3	; Sleep Mode Select
+                                 .equ	SM1	= 4	; Sleep Mode Select
+                                 .equ	SE	= 5	; Sleep Enable
+                                 .equ	SRW10	= 6	; External SRAM Wait State Select
+                                 .equ	SRE	= 7	; External SRAM Enable
+                                 
+                                 ; XMCRA - External Memory Control Register A
+                                 .equ	SRW11	= 1	; Wait state select bit upper page
+                                 .equ	SRW00	= 2	; Wait state select bit lower page
+                                 .equ	SRW01	= 3	; Wait state select bit lower page
+                                 .equ	SRL0	= 4	; Wait state page limit
+                                 .equ	SRL1	= 5	; Wait state page limit
+                                 .equ	SRL2	= 6	; Wait state page limit
+                                 
+                                 ; XMCRB - External Memory Control Register B
+                                 .equ	XMM0	= 0	; External Memory High Mask
+                                 .equ	XMM1	= 1	; External Memory High Mask
+                                 .equ	XMM2	= 2	; External Memory High Mask
+                                 .equ	XMBK	= 7	; External Memory Bus Keeper Enable
+                                 
+                                 ; OSCCAL - Oscillator Calibration Value
+                                 .equ	CAL0	= 0	; Oscillator Calibration Value
+                                 .equ	CAL1	= 1	; Oscillator Calibration Value
+                                 .equ	CAL2	= 2	; Oscillator Calibration Value
+                                 .equ	CAL3	= 3	; Oscillator Calibration Value
+                                 .equ	CAL4	= 4	; Oscillator Calibration Value
+                                 .equ	CAL5	= 5	; Oscillator Calibration Value
+                                 .equ	CAL6	= 6	; Oscillator Calibration Value
+                                 .equ	CAL7	= 7	; Oscillator Calibration Value
+                                 
+                                 ; XDIV - XTAL Divide Control Register
+                                 .equ	XDIV0	= 0	; XTAl Divide Select Bit 0
+                                 .equ	XDIV1	= 1	; XTAl Divide Select Bit 1
+                                 .equ	XDIV2	= 2	; XTAl Divide Select Bit 2
+                                 .equ	XDIV3	= 3	; XTAl Divide Select Bit 3
+                                 .equ	XDIV4	= 4	; XTAl Divide Select Bit 4
+                                 .equ	XDIV5	= 5	; XTAl Divide Select Bit 5
+                                 .equ	XDIV6	= 6	; XTAl Divide Select Bit 6
+                                 .equ	XDIVEN	= 7	; XTAL Divide Enable
+                                 
+                                 ; MCUCSR - MCU Control And Status Register
+                                 .equ	PORF	= 0	; Power-on reset flag
+                                 .equ	EXTRF	= 1	; External Reset Flag
+                                 .equ	BORF	= 2	; Brown-out Reset Flag
+                                 .equ	WDRF	= 3	; Watchdog Reset Flag
+                                 .equ	JTRF	= 4	; JTAG Reset Flag
+                                 .equ	JTD	= 7	; JTAG Interface Disable
+                                 
+                                 ; RAMPZ - RAM Page Z Select Register
+                                 .equ	RAMPZ0	= 0	; RAM Page Z Select Register Bit 0
+                                 
+                                 
+                                 ; ***** BOOT_LOAD ********************
+                                 ; SPMCSR - Store Program Memory Control Register
+                                 .equ	SPMCR	= SPMCSR	; For compatibility
+                                 .equ	SPMEN	= 0	; Store Program Memory Enable
+                                 .equ	PGERS	= 1	; Page Erase
+                                 .equ	PGWRT	= 2	; Page Write
+                                 .equ	BLBSET	= 3	; Boot Lock Bit Set
+                                 .equ	RWWSRE	= 4	; Read While Write section read enable
+                                 .equ	ASRE	= RWWSRE	; For compatibility
+                                 .equ	RWWSB	= 6	; Read While Write Section Busy
+                                 .equ	ASB	= RWWSB	; For compatibility
+                                 .equ	SPMIE	= 7	; SPM Interrupt Enable
+                                 
+                                 
+                                 ; ***** JTAG *************************
+                                 ; OCDR - On-Chip Debug Related Register in I/O Memory
+                                 .equ	OCDR0	= 0	; On-Chip Debug Register Bit 0
+                                 .equ	OCDR1	= 1	; On-Chip Debug Register Bit 1
+                                 .equ	OCDR2	= 2	; On-Chip Debug Register Bit 2
+                                 .equ	OCDR3	= 3	; On-Chip Debug Register Bit 3
+                                 .equ	OCDR4	= 4	; On-Chip Debug Register Bit 4
+                                 .equ	OCDR5	= 5	; On-Chip Debug Register Bit 5
+                                 .equ	OCDR6	= 6	; On-Chip Debug Register Bit 6
+                                 .equ	OCDR7	= 7	; On-Chip Debug Register Bit 7
+                                 .equ	IDRD	= OCDR7	; For compatibility
+                                 
+                                 ; MCUCSR - MCU Control And Status Register
+                                 ;.equ	JTRF	= 4	; JTAG Reset Flag
+                                 ;.equ	JTD	= 7	; JTAG Interface Disable
+                                 
+                                 
+                                 ; ***** MISC *************************
+                                 ; SFIOR - Special Function IO Register
+                                 .equ	PSR321	= 0	; Prescaler Reset Timer/Counter3, Timer/Counter2, and Timer/Counter1
+                                 .equ	PSR1	= PSR321	; For compatibility
+                                 .equ	PSR2	= PSR321	; For compatibility
+                                 .equ	PSR3	= PSR321	; For compatibility
+                                 .equ	PSR0	= 1	; Prescaler Reset Timer/Counter0
+                                 .equ	PUD	= 2	; Pull Up Disable
+                                 ;.equ	ACME	= 3	; Analog Comparator Multiplexer Enable
+                                 .equ	TSM	= 7	; Timer/Counter Synchronization Mode
+                                 
+                                 
+                                 ; ***** EXTERNAL_INTERRUPT ***********
+                                 ; EICRA - External Interrupt Control Register A
+                                 .equ	ISC00	= 0	; External Interrupt Sense Control Bit
+                                 .equ	ISC01	= 1	; External Interrupt Sense Control Bit
+                                 .equ	ISC10	= 2	; External Interrupt Sense Control Bit
+                                 .equ	ISC11	= 3	; External Interrupt Sense Control Bit
+                                 .equ	ISC20	= 4	; External Interrupt Sense Control Bit
+                                 .equ	ISC21	= 5	; External Interrupt Sense Control Bit
+                                 .equ	ISC30	= 6	; External Interrupt Sense Control Bit
+                                 .equ	ISC31	= 7	; External Interrupt Sense Control Bit
+                                 
+                                 ; EICRB - External Interrupt Control Register B
+                                 .equ	ISC40	= 0	; External Interrupt 7-4 Sense Control Bit
+                                 .equ	ISC41	= 1	; External Interrupt 7-4 Sense Control Bit
+                                 .equ	ISC50	= 2	; External Interrupt 7-4 Sense Control Bit
+                                 .equ	ISC51	= 3	; External Interrupt 7-4 Sense Control Bit
+                                 .equ	ISC60	= 4	; External Interrupt 7-4 Sense Control Bit
+                                 .equ	ISC61	= 5	; External Interrupt 7-4 Sense Control Bit
+                                 .equ	ISC70	= 6	; External Interrupt 7-4 Sense Control Bit
+                                 .equ	ISC71	= 7	; External Interrupt 7-4 Sense Control Bit
+                                 
+                                 ; EIMSK - External Interrupt Mask Register
+                                 .equ	GICR	= EIMSK	; For compatibility
+                                 .equ	GIMSK	= EIMSK	; For compatibility
+                                 .equ	INT0	= 0	; External Interrupt Request 0 Enable
+                                 .equ	INT1	= 1	; External Interrupt Request 1 Enable
+                                 .equ	INT2	= 2	; External Interrupt Request 2 Enable
+                                 .equ	INT3	= 3	; External Interrupt Request 3 Enable
+                                 .equ	INT4	= 4	; External Interrupt Request 4 Enable
+                                 .equ	INT5	= 5	; External Interrupt Request 5 Enable
+                                 .equ	INT6	= 6	; External Interrupt Request 6 Enable
+                                 .equ	INT7	= 7	; External Interrupt Request 7 Enable
+                                 
+                                 ; EIFR - External Interrupt Flag Register
+                                 .equ	GIFR	= EIFR	; For compatibility
+                                 .equ	INTF0	= 0	; External Interrupt Flag 0
+                                 .equ	INTF1	= 1	; External Interrupt Flag 1
+                                 .equ	INTF2	= 2	; External Interrupt Flag 2
+                                 .equ	INTF3	= 3	; External Interrupt Flag 3
+                                 .equ	INTF4	= 4	; External Interrupt Flag 4
+                                 .equ	INTF5	= 5	; External Interrupt Flag 5
+                                 .equ	INTF6	= 6	; External Interrupt Flag 6
+                                 .equ	INTF7	= 7	; External Interrupt Flag 7
+                                 
+                                 
+                                 ; ***** EEPROM ***********************
+                                 ; EEDR - EEPROM Data Register
+                                 .equ	EEDR0	= 0	; EEPROM Data Register bit 0
+                                 .equ	EEDR1	= 1	; EEPROM Data Register bit 1
+                                 .equ	EEDR2	= 2	; EEPROM Data Register bit 2
+                                 .equ	EEDR3	= 3	; EEPROM Data Register bit 3
+                                 .equ	EEDR4	= 4	; EEPROM Data Register bit 4
+                                 .equ	EEDR5	= 5	; EEPROM Data Register bit 5
+                                 .equ	EEDR6	= 6	; EEPROM Data Register bit 6
+                                 .equ	EEDR7	= 7	; EEPROM Data Register bit 7
+                                 
+                                 ; EECR - EEPROM Control Register
+                                 .equ	EERE	= 0	; EEPROM Read Enable
+                                 .equ	EEWE	= 1	; EEPROM Write Enable
+                                 .equ	EEMWE	= 2	; EEPROM Master Write Enable
+                                 .equ	EERIE	= 3	; EEPROM Ready Interrupt Enable
+                                 
+                                 
+                                 ; ***** PORTA ************************
+                                 ; PORTA - Port A Data Register
+                                 .equ	PORTA0	= 0	; Port A Data Register bit 0
+                                 .equ	PA0	= 0	; For compatibility
+                                 .equ	PORTA1	= 1	; Port A Data Register bit 1
+                                 .equ	PA1	= 1	; For compatibility
+                                 .equ	PORTA2	= 2	; Port A Data Register bit 2
+                                 .equ	PA2	= 2	; For compatibility
+                                 .equ	PORTA3	= 3	; Port A Data Register bit 3
+                                 .equ	PA3	= 3	; For compatibility
+                                 .equ	PORTA4	= 4	; Port A Data Register bit 4
+                                 .equ	PA4	= 4	; For compatibility
+                                 .equ	PORTA5	= 5	; Port A Data Register bit 5
+                                 .equ	PA5	= 5	; For compatibility
+                                 .equ	PORTA6	= 6	; Port A Data Register bit 6
+                                 .equ	PA6	= 6	; For compatibility
+                                 .equ	PORTA7	= 7	; Port A Data Register bit 7
+                                 .equ	PA7	= 7	; For compatibility
+                                 
+                                 ; DDRA - Port A Data Direction Register
+                                 .equ	DDA0	= 0	; Data Direction Register, Port A, bit 0
+                                 .equ	DDA1	= 1	; Data Direction Register, Port A, bit 1
+                                 .equ	DDA2	= 2	; Data Direction Register, Port A, bit 2
+                                 .equ	DDA3	= 3	; Data Direction Register, Port A, bit 3
+                                 .equ	DDA4	= 4	; Data Direction Register, Port A, bit 4
+                                 .equ	DDA5	= 5	; Data Direction Register, Port A, bit 5
+                                 .equ	DDA6	= 6	; Data Direction Register, Port A, bit 6
+                                 .equ	DDA7	= 7	; Data Direction Register, Port A, bit 7
+                                 
+                                 ; PINA - Port A Input Pins
+                                 .equ	PINA0	= 0	; Input Pins, Port A bit 0
+                                 .equ	PINA1	= 1	; Input Pins, Port A bit 1
+                                 .equ	PINA2	= 2	; Input Pins, Port A bit 2
+                                 .equ	PINA3	= 3	; Input Pins, Port A bit 3
+                                 .equ	PINA4	= 4	; Input Pins, Port A bit 4
+                                 .equ	PINA5	= 5	; Input Pins, Port A bit 5
+                                 .equ	PINA6	= 6	; Input Pins, Port A bit 6
+                                 .equ	PINA7	= 7	; Input Pins, Port A bit 7
+                                 
+                                 
+                                 ; ***** PORTB ************************
+                                 ; PORTB - Port B Data Register
+                                 .equ	PORTB0	= 0	; Port B Data Register bit 0
+                                 .equ	PB0	= 0	; For compatibility
+                                 .equ	PORTB1	= 1	; Port B Data Register bit 1
+                                 .equ	PB1	= 1	; For compatibility
+                                 .equ	PORTB2	= 2	; Port B Data Register bit 2
+                                 .equ	PB2	= 2	; For compatibility
+                                 .equ	PORTB3	= 3	; Port B Data Register bit 3
+                                 .equ	PB3	= 3	; For compatibility
+                                 .equ	PORTB4	= 4	; Port B Data Register bit 4
+                                 .equ	PB4	= 4	; For compatibility
+                                 .equ	PORTB5	= 5	; Port B Data Register bit 5
+                                 .equ	PB5	= 5	; For compatibility
+                                 .equ	PORTB6	= 6	; Port B Data Register bit 6
+                                 .equ	PB6	= 6	; For compatibility
+                                 .equ	PORTB7	= 7	; Port B Data Register bit 7
+                                 .equ	PB7	= 7	; For compatibility
+                                 
+                                 ; DDRB - Port B Data Direction Register
+                                 .equ	DDB0	= 0	; Port B Data Direction Register bit 0
+                                 .equ	DDB1	= 1	; Port B Data Direction Register bit 1
+                                 .equ	DDB2	= 2	; Port B Data Direction Register bit 2
+                                 .equ	DDB3	= 3	; Port B Data Direction Register bit 3
+                                 .equ	DDB4	= 4	; Port B Data Direction Register bit 4
+                                 .equ	DDB5	= 5	; Port B Data Direction Register bit 5
+                                 .equ	DDB6	= 6	; Port B Data Direction Register bit 6
+                                 .equ	DDB7	= 7	; Port B Data Direction Register bit 7
+                                 
+                                 ; PINB - Port B Input Pins
+                                 .equ	PINB0	= 0	; Port B Input Pins bit 0
+                                 .equ	PINB1	= 1	; Port B Input Pins bit 1
+                                 .equ	PINB2	= 2	; Port B Input Pins bit 2
+                                 .equ	PINB3	= 3	; Port B Input Pins bit 3
+                                 .equ	PINB4	= 4	; Port B Input Pins bit 4
+                                 .equ	PINB5	= 5	; Port B Input Pins bit 5
+                                 .equ	PINB6	= 6	; Port B Input Pins bit 6
+                                 .equ	PINB7	= 7	; Port B Input Pins bit 7
+                                 
+                                 
+                                 ; ***** PORTC ************************
+                                 ; PORTC - Port C Data Register
+                                 .equ	PORTC0	= 0	; Port C Data Register bit 0
+                                 .equ	PC0	= 0	; For compatibility
+                                 .equ	PORTC1	= 1	; Port C Data Register bit 1
+                                 .equ	PC1	= 1	; For compatibility
+                                 .equ	PORTC2	= 2	; Port C Data Register bit 2
+                                 .equ	PC2	= 2	; For compatibility
+                                 .equ	PORTC3	= 3	; Port C Data Register bit 3
+                                 .equ	PC3	= 3	; For compatibility
+                                 .equ	PORTC4	= 4	; Port C Data Register bit 4
+                                 .equ	PC4	= 4	; For compatibility
+                                 .equ	PORTC5	= 5	; Port C Data Register bit 5
+                                 .equ	PC5	= 5	; For compatibility
+                                 .equ	PORTC6	= 6	; Port C Data Register bit 6
+                                 .equ	PC6	= 6	; For compatibility
+                                 .equ	PORTC7	= 7	; Port C Data Register bit 7
+                                 .equ	PC7	= 7	; For compatibility
+                                 
+                                 ; DDRC - Port C Data Direction Register
+                                 .equ	DDC0	= 0	; Port C Data Direction Register bit 0
+                                 .equ	DDC1	= 1	; Port C Data Direction Register bit 1
+                                 .equ	DDC2	= 2	; Port C Data Direction Register bit 2
+                                 .equ	DDC3	= 3	; Port C Data Direction Register bit 3
+                                 .equ	DDC4	= 4	; Port C Data Direction Register bit 4
+                                 .equ	DDC5	= 5	; Port C Data Direction Register bit 5
+                                 .equ	DDC6	= 6	; Port C Data Direction Register bit 6
+                                 .equ	DDC7	= 7	; Port C Data Direction Register bit 7
+                                 
+                                 ; PINC - Port C Input Pins
+                                 .equ	PINC0	= 0	; Port C Input Pins bit 0
+                                 .equ	PINC1	= 1	; Port C Input Pins bit 1
+                                 .equ	PINC2	= 2	; Port C Input Pins bit 2
+                                 .equ	PINC3	= 3	; Port C Input Pins bit 3
+                                 .equ	PINC4	= 4	; Port C Input Pins bit 4
+                                 .equ	PINC5	= 5	; Port C Input Pins bit 5
+                                 .equ	PINC6	= 6	; Port C Input Pins bit 6
+                                 .equ	PINC7	= 7	; Port C Input Pins bit 7
+                                 
+                                 
+                                 ; ***** PORTD ************************
+                                 ; PORTD - Port D Data Register
+                                 .equ	PORTD0	= 0	; Port D Data Register bit 0
+                                 .equ	PD0	= 0	; For compatibility
+                                 .equ	PORTD1	= 1	; Port D Data Register bit 1
+                                 .equ	PD1	= 1	; For compatibility
+                                 .equ	PORTD2	= 2	; Port D Data Register bit 2
+                                 .equ	PD2	= 2	; For compatibility
+                                 .equ	PORTD3	= 3	; Port D Data Register bit 3
+                                 .equ	PD3	= 3	; For compatibility
+                                 .equ	PORTD4	= 4	; Port D Data Register bit 4
+                                 .equ	PD4	= 4	; For compatibility
+                                 .equ	PORTD5	= 5	; Port D Data Register bit 5
+                                 .equ	PD5	= 5	; For compatibility
+                                 .equ	PORTD6	= 6	; Port D Data Register bit 6
+                                 .equ	PD6	= 6	; For compatibility
+                                 .equ	PORTD7	= 7	; Port D Data Register bit 7
+                                 .equ	PD7	= 7	; For compatibility
+                                 
+                                 ; DDRD - Port D Data Direction Register
+                                 .equ	DDD0	= 0	; Port D Data Direction Register bit 0
+                                 .equ	DDD1	= 1	; Port D Data Direction Register bit 1
+                                 .equ	DDD2	= 2	; Port D Data Direction Register bit 2
+                                 .equ	DDD3	= 3	; Port D Data Direction Register bit 3
+                                 .equ	DDD4	= 4	; Port D Data Direction Register bit 4
+                                 .equ	DDD5	= 5	; Port D Data Direction Register bit 5
+                                 .equ	DDD6	= 6	; Port D Data Direction Register bit 6
+                                 .equ	DDD7	= 7	; Port D Data Direction Register bit 7
+                                 
+                                 ; PIND - Port D Input Pins
+                                 .equ	PIND0	= 0	; Port D Input Pins bit 0
+                                 .equ	PIND1	= 1	; Port D Input Pins bit 1
+                                 .equ	PIND2	= 2	; Port D Input Pins bit 2
+                                 .equ	PIND3	= 3	; Port D Input Pins bit 3
+                                 .equ	PIND4	= 4	; Port D Input Pins bit 4
+                                 .equ	PIND5	= 5	; Port D Input Pins bit 5
+                                 .equ	PIND6	= 6	; Port D Input Pins bit 6
+                                 .equ	PIND7	= 7	; Port D Input Pins bit 7
+                                 
+                                 
+                                 ; ***** PORTE ************************
+                                 ; PORTE - Data Register, Port E
+                                 .equ	PORTE0	= 0	; 
+                                 .equ	PE0	= 0	; For compatibility
+                                 .equ	PORTE1	= 1	; 
+                                 .equ	PE1	= 1	; For compatibility
+                                 .equ	PORTE2	= 2	; 
+                                 .equ	PE2	= 2	; For compatibility
+                                 .equ	PORTE3	= 3	; 
+                                 .equ	PE3	= 3	; For compatibility
+                                 .equ	PORTE4	= 4	; 
+                                 .equ	PE4	= 4	; For compatibility
+                                 .equ	PORTE5	= 5	; 
+                                 .equ	PE5	= 5	; For compatibility
+                                 .equ	PORTE6	= 6	; 
+                                 .equ	PE6	= 6	; For compatibility
+                                 .equ	PORTE7	= 7	; 
+                                 .equ	PE7	= 7	; For compatibility
+                                 
+                                 ; DDRE - Data Direction Register, Port E
+                                 .equ	DDE0	= 0	; 
+                                 .equ	DDE1	= 1	; 
+                                 .equ	DDE2	= 2	; 
+                                 .equ	DDE3	= 3	; 
+                                 .equ	DDE4	= 4	; 
+                                 .equ	DDE5	= 5	; 
+                                 .equ	DDE6	= 6	; 
+                                 .equ	DDE7	= 7	; 
+                                 
+                                 ; PINE - Input Pins, Port E
+                                 .equ	PINE0	= 0	; 
+                                 .equ	PINE1	= 1	; 
+                                 .equ	PINE2	= 2	; 
+                                 .equ	PINE3	= 3	; 
+                                 .equ	PINE4	= 4	; 
+                                 .equ	PINE5	= 5	; 
+                                 .equ	PINE6	= 6	; 
+                                 .equ	PINE7	= 7	; 
+                                 
+                                 
+                                 ; ***** PORTF ************************
+                                 ; PORTF - Data Register, Port F
+                                 .equ	PORTF0	= 0	; 
+                                 .equ	PF0	= 0	; For compatibility
+                                 .equ	PORTF1	= 1	; 
+                                 .equ	PF1	= 1	; For compatibility
+                                 .equ	PORTF2	= 2	; 
+                                 .equ	PF2	= 2	; For compatibility
+                                 .equ	PORTF3	= 3	; 
+                                 .equ	PF3	= 3	; For compatibility
+                                 .equ	PORTF4	= 4	; 
+                                 .equ	PF4	= 4	; For compatibility
+                                 .equ	PORTF5	= 5	; 
+                                 .equ	PF5	= 5	; For compatibility
+                                 .equ	PORTF6	= 6	; 
+                                 .equ	PF6	= 6	; For compatibility
+                                 .equ	PORTF7	= 7	; 
+                                 .equ	PF7	= 7	; For compatibility
+                                 
+                                 ; DDRF - Data Direction Register, Port F
+                                 .equ	DDF0	= 0	; 
+                                 .equ	DDF1	= 1	; 
+                                 .equ	DDF2	= 2	; 
+                                 .equ	DDF3	= 3	; 
+                                 .equ	DDF4	= 4	; 
+                                 .equ	DDF5	= 5	; 
+                                 .equ	DDF6	= 6	; 
+                                 .equ	DDF7	= 7	; 
+                                 
+                                 ; PINF - Input Pins, Port F
+                                 .equ	PINF0	= 0	; 
+                                 .equ	PINF1	= 1	; 
+                                 .equ	PINF2	= 2	; 
+                                 .equ	PINF3	= 3	; 
+                                 .equ	PINF4	= 4	; 
+                                 .equ	PINF5	= 5	; 
+                                 .equ	PINF6	= 6	; 
+                                 .equ	PINF7	= 7	; 
+                                 
+                                 
+                                 ; ***** PORTG ************************
+                                 ; PORTG - Data Register, Port G
+                                 .equ	PORTG0	= 0	; 
+                                 .equ	PG0	= 0	; For compatibility
+                                 .equ	PORTG1	= 1	; 
+                                 .equ	PG1	= 1	; For compatibility
+                                 .equ	PORTG2	= 2	; 
+                                 .equ	PG2	= 2	; For compatibility
+                                 .equ	PORTG3	= 3	; 
+                                 .equ	PG3	= 3	; For compatibility
+                                 .equ	PORTG4	= 4	; 
+                                 .equ	PG4	= 4	; For compatibility
+                                 
+                                 ; DDRG - Data Direction Register, Port G
+                                 .equ	DDG0	= 0	; 
+                                 .equ	DDG1	= 1	; 
+                                 .equ	DDG2	= 2	; 
+                                 .equ	DDG3	= 3	; 
+                                 .equ	DDG4	= 4	; 
+                                 
+                                 ; PING - Input Pins, Port G
+                                 .equ	PING0	= 0	; 
+                                 .equ	PING1	= 1	; 
+                                 .equ	PING2	= 2	; 
+                                 .equ	PING3	= 3	; 
+                                 .equ	PING4	= 4	; 
+                                 
+                                 
+                                 ; ***** TIMER_COUNTER_0 **************
+                                 ; TCCR0 - Timer/Counter Control Register
+                                 .equ	CS00	= 0	; Clock Select 0
+                                 .equ	CS01	= 1	; Clock Select 1
+                                 .equ	CS02	= 2	; Clock Select 2
+                                 .equ	WGM01	= 3	; Waveform Generation Mode 1
+                                 .equ	CTC0	= WGM01	; For compatibility
+                                 .equ	COM00	= 4	; Compare match Output Mode 0
+                                 .equ	COM01	= 5	; Compare Match Output Mode 1
+                                 .equ	WGM00	= 6	; Waveform Generation Mode 0
+                                 .equ	PWM0	= WGM00	; For compatibility
+                                 .equ	FOC0	= 7	; Force Output Compare
+                                 
+                                 ; TCNT0 - Timer/Counter Register
+                                 .equ	TCNT0_0	= 0	; 
+                                 .equ	TCNT0_1	= 1	; 
+                                 .equ	TCNT0_2	= 2	; 
+                                 .equ	TCNT0_3	= 3	; 
+                                 .equ	TCNT0_4	= 4	; 
+                                 .equ	TCNT0_5	= 5	; 
+                                 .equ	TCNT0_6	= 6	; 
+                                 .equ	TCNT0_7	= 7	; 
+                                 
+                                 ; OCR0 - Output Compare Register
+                                 .equ	OCR0_0	= 0	; 
+                                 .equ	OCR0_1	= 1	; 
+                                 .equ	OCR0_2	= 2	; 
+                                 .equ	OCR0_3	= 3	; 
+                                 .equ	OCR0_4	= 4	; 
+                                 .equ	OCR0_5	= 5	; 
+                                 .equ	OCR0_6	= 6	; 
+                                 .equ	OCR0_7	= 7	; 
+                                 
+                                 ; ASSR - Asynchronus Status Register
+                                 .equ	TCR0UB	= 0	; Timer/Counter Control Register 0 Update Busy
+                                 .equ	OCR0UB	= 1	; Output Compare register 0 Busy
+                                 .equ	TCN0UB	= 2	; Timer/Counter0 Update Busy
+                                 .equ	AS0	= 3	; Asynchronus Timer/Counter 0
+                                 
+                                 ; TIMSK - Timer/Counter Interrupt Mask Register
+                                 .equ	TOIE0	= 0	; Timer/Counter0 Overflow Interrupt Enable
+                                 .equ	OCIE0	= 1	; Timer/Counter0 Output Compare Match Interrupt register
+                                 
+                                 ; TIFR - Timer/Counter Interrupt Flag register
+                                 .equ	TOV0	= 0	; Timer/Counter0 Overflow Flag
+                                 .equ	OCF0	= 1	; Output Compare Flag 0
+                                 
+                                 ; SFIOR - Special Function IO Register
+                                 ;.equ	PSR0	= 1	; Prescaler Reset Timer/Counter0
+                                 ;.equ	TSM	= 7	; Timer/Counter Synchronization Mode
+                                 
+                                 
+                                 ; ***** TIMER_COUNTER_1 **************
+                                 ; TIMSK - Timer/Counter Interrupt Mask Register
+                                 .equ	TOIE1	= 2	; Timer/Counter1 Overflow Interrupt Enable
+                                 .equ	OCIE1B	= 3	; Timer/Counter1 Output CompareB Match Interrupt Enable
+                                 .equ	OCIE1A	= 4	; Timer/Counter1 Output CompareA Match Interrupt Enable
+                                 .equ	TICIE1	= 5	; Timer/Counter1 Input Capture Interrupt Enable
+                                 
+                                 ; ETIMSK - Extended Timer/Counter Interrupt Mask Register
+                                 .equ	OCIE1C	= 0	; Timer/Counter 1, Output Compare Match C Interrupt Enable
+                                 
+                                 ; TIFR - Timer/Counter Interrupt Flag register
+                                 .equ	TOV1	= 2	; Timer/Counter1 Overflow Flag
+                                 .equ	OCF1B	= 3	; Output Compare Flag 1B
+                                 .equ	OCF1A	= 4	; Output Compare Flag 1A
+                                 .equ	ICF1	= 5	; Input Capture Flag 1
+                                 
+                                 ; ETIFR - Extended Timer/Counter Interrupt Flag register
+                                 .equ	OCF1C	= 0	; Timer/Counter 1, Output Compare C Match Flag
+                                 
+                                 ; SFIOR - Special Function IO Register
+                                 ;.equ	PSR321	= 0	; Prescaler Reset, T/C3, T/C2, T/C1
+                                 ;.equ	TSM	= 7	; Timer/Counter Synchronization Mode
+                                 
+                                 ; TCCR1A - Timer/Counter1 Control Register A
+                                 .equ	WGM10	= 0	; Waveform Generation Mode Bit 0
+                                 .equ	PWM10	= WGM10	; For compatibility
+                                 .equ	WGM11	= 1	; Waveform Generation Mode Bit 1
+                                 .equ	PWM11	= WGM11	; For compatibility
+                                 .equ	COM1C0	= 2	; Compare Output Mode 1C, bit 0
+                                 .equ	COM1C1	= 3	; Compare Output Mode 1C, bit 1
+                                 .equ	COM1B0	= 4	; Compare Output Mode 1B, bit 0
+                                 .equ	COM1B1	= 5	; Compare Output Mode 1B, bit 1
+                                 .equ	COM1A0	= 6	; Compare Ouput Mode 1A, bit 0
+                                 .equ	COM1A1	= 7	; Compare Output Mode 1A, bit 1
+                                 
+                                 ; TCCR1B - Timer/Counter1 Control Register B
+                                 .equ	CS10	= 0	; Clock Select bit 0
+                                 .equ	CS11	= 1	; Clock Select 1 bit 1
+                                 .equ	CS12	= 2	; Clock Select1 bit 2
+                                 .equ	WGM12	= 3	; Waveform Generation Mode
+                                 .equ	CTC10	= WGM12	; For compatibility
+                                 .equ	WGM13	= 4	; Waveform Generation Mode
+                                 .equ	CTC11	= WGM13	; For compatibility
+                                 .equ	ICES1	= 6	; Input Capture 1 Edge Select
+                                 .equ	ICNC1	= 7	; Input Capture 1 Noise Canceler
+                                 
+                                 ; TCCR1C - Timer/Counter1 Control Register C
+                                 .equ	FOC1C	= 5	; Force Output Compare for channel C
+                                 .equ	FOC1B	= 6	; Force Output Compare for channel B
+                                 .equ	FOC1A	= 7	; Force Output Compare for channel A
+                                 
+                                 
+                                 ; ***** TIMER_COUNTER_2 **************
+                                 ; TCCR2 - Timer/Counter Control Register
+                                 .equ	CS20	= 0	; Clock Select
+                                 .equ	CS21	= 1	; Clock Select
+                                 .equ	CS22	= 2	; Clock Select
+                                 .equ	WGM21	= 3	; Waveform Generation Mode
+                                 .equ	CTC2	= WGM21	; For compatibility
+                                 .equ	COM20	= 4	; Compare Match Output Mode
+                                 .equ	COM21	= 5	; Compare Match Output Mode
+                                 .equ	WGM20	= 6	; Wafeform Generation Mode
+                                 .equ	PWM2	= WGM20	; For compatibility
+                                 .equ	FOC2	= 7	; Force Output Compare
+                                 
+                                 ; TCNT2 - Timer/Counter Register
+                                 .equ	TCNT2_0	= 0	; Timer/Counter Register Bit 0
+                                 .equ	TCNT2_1	= 1	; Timer/Counter Register Bit 1
+                                 .equ	TCNT2_2	= 2	; Timer/Counter Register Bit 2
+                                 .equ	TCNT2_3	= 3	; Timer/Counter Register Bit 3
+                                 .equ	TCNT2_4	= 4	; Timer/Counter Register Bit 4
+                                 .equ	TCNT2_5	= 5	; Timer/Counter Register Bit 5
+                                 .equ	TCNT2_6	= 6	; Timer/Counter Register Bit 6
+                                 .equ	TCNT2_7	= 7	; Timer/Counter Register Bit 7
+                                 
+                                 ; OCR2 - Output Compare Register
+                                 .equ	OCR2_0	= 0	; Output Compare Register Bit 0
+                                 .equ	OCR2_1	= 1	; Output Compare Register Bit 1
+                                 .equ	OCR2_2	= 2	; Output Compare Register Bit 2
+                                 .equ	OCR2_3	= 3	; Output Compare Register Bit 3
+                                 .equ	OCR2_4	= 4	; Output Compare Register Bit 4
+                                 .equ	OCR2_5	= 5	; Output Compare Register Bit 5
+                                 .equ	OCR2_6	= 6	; Output Compare Register Bit 6
+                                 .equ	OCR2_7	= 7	; Output Compare Register Bit 7
+                                 
+                                 ; TIMSK - 
+                                 .equ	TOIE2	= 6	; 
+                                 .equ	OCIE2	= 7	; 
+                                 
+                                 ; TIFR - Timer/Counter Interrupt Flag Register
+                                 .equ	TOV2	= 6	; Timer/Counter2 Overflow Flag
+                                 .equ	OCF2	= 7	; Output Compare Flag 2
+                                 
+                                 
+                                 ; ***** TIMER_COUNTER_3 **************
+                                 ; ETIMSK - Extended Timer/Counter Interrupt Mask Register
+                                 .equ	OCIE3C	= 1	; Timer/Counter3, Output Compare Match Interrupt Enable
+                                 .equ	TOIE3	= 2	; Timer/Counter3 Overflow Interrupt Enable
+                                 .equ	OCIE3B	= 3	; Timer/Counter3 Output CompareB Match Interrupt Enable
+                                 .equ	OCIE3A	= 4	; Timer/Counter3 Output CompareA Match Interrupt Enable
+                                 .equ	TICIE3	= 5	; Timer/Counter3 Input Capture Interrupt Enable
+                                 
+                                 ; ETIFR - Extended Timer/Counter Interrupt Flag register
+                                 .equ	OCF3C	= 1	; Timer/Counter3 Output Compare C Match Flag
+                                 .equ	TOV3	= 2	; Timer/Counter3 Overflow Flag
+                                 .equ	OCF3B	= 3	; Output Compare Flag 1B
+                                 .equ	OCF3A	= 4	; Output Compare Flag 1A
+                                 .equ	ICF3	= 5	; Input Capture Flag 1
+                                 
+                                 ; SFIOR - Special Function IO Register
+                                 ;.equ	PSR321	= 0	; Prescaler Reset, T/C3, T/C2, T/C1
+                                 ;.equ	PSR1	= PSR321	; For compatibility
+                                 ;.equ	PSR2	= PSR321	; For compatibility
+                                 ;.equ	TSM	= 7	; Timer/Counter Synchronization Mode
+                                 
+                                 ; TCCR3A - Timer/Counter3 Control Register A
+                                 .equ	WGM30	= 0	; Waveform Generation Mode Bit 0
+                                 .equ	PWM30	= WGM30	; For compatibility
+                                 .equ	WGM31	= 1	; Waveform Generation Mode Bit 1
+                                 .equ	PWM31	= WGM31	; For compatibility
+                                 .equ	COM3C0	= 2	; Compare Output Mode 3C, bit 0
+                                 .equ	COM3C1	= 3	; Compare Output Mode 3C, bit 1
+                                 .equ	COM3B0	= 4	; Compare Output Mode 3B, bit 0
+                                 .equ	COM3B1	= 5	; Compare Output Mode 3B, bit 1
+                                 .equ	COM3A0	= 6	; Comparet Ouput Mode 3A, bit 0
+                                 .equ	COM3A1	= 7	; Compare Output Mode 3A, bit 1
+                                 
+                                 ; TCCR3B - Timer/Counter3 Control Register B
+                                 .equ	CS30	= 0	; Clock Select 3 bit 0
+                                 .equ	CS31	= 1	; Clock Select 3 bit 1
+                                 .equ	CS32	= 2	; Clock Select3 bit 2
+                                 .equ	WGM32	= 3	; Waveform Generation Mode
+                                 .equ	CTC30	= WGM32	; For compatibility
+                                 .equ	WGM33	= 4	; Waveform Generation Mode
+                                 .equ	CTC31	= WGM33	; For compatibility
+                                 .equ	ICES3	= 6	; Input Capture 3 Edge Select
+                                 .equ	ICNC3	= 7	; Input Capture 3  Noise Canceler
+                                 
+                                 ; TCCR3C - Timer/Counter3 Control Register C
+                                 .equ	FOC3C	= 5	; Force Output Compare for channel C
+                                 .equ	FOC3B	= 6	; Force Output Compare for channel B
+                                 .equ	FOC3A	= 7	; Force Output Compare for channel A
+                                 
+                                 ; TCNT3L - Timer/Counter3 Low Byte
+                                 .equ	TCN3L0	= 0	; Timer/Counter 3 bit 0
+                                 .equ	TCN3L1	= 1	; Timer/Counter 3 bit 1
+                                 .equ	TCN3L2	= 2	; Timer/Counter 3 bit 2
+                                 .equ	TCN3L3	= 3	; Timer/Counter 3 bit 3
+                                 .equ	TCN3L4	= 4	; Timer/Counter 3 bit 4
+                                 .equ	TCN3L5	= 5	; Timer/Counter 3 bit 5
+                                 .equ	TCN3L6	= 6	; Timer/Counter 3 bit 6
+                                 .equ	TCN3L7	= 7	; Timer/Counter 3 bit 7
+                                 
+                                 
+                                 ; ***** WATCHDOG *********************
+                                 ; WDTCR - Watchdog Timer Control Register
+                                 .equ	WDTCSR	= WDTCR	; For compatibility
+                                 .equ	WDP0	= 0	; Watch Dog Timer Prescaler bit 0
+                                 .equ	WDP1	= 1	; Watch Dog Timer Prescaler bit 1
+                                 .equ	WDP2	= 2	; Watch Dog Timer Prescaler bit 2
+                                 .equ	WDE	= 3	; Watch Dog Enable
+                                 .equ	WDCE	= 4	; Watchdog Change Enable
+                                 .equ	WDTOE	= WDCE	; For compatibility
+                                 
+                                 
+                                 ; ***** AD_CONVERTER *****************
+                                 ; ADMUX - The ADC multiplexer Selection Register
+                                 .equ	MUX0	= 0	; Analog Channel and Gain Selection Bits
+                                 .equ	MUX1	= 1	; Analog Channel and Gain Selection Bits
+                                 .equ	MUX2	= 2	; Analog Channel and Gain Selection Bits
+                                 .equ	MUX3	= 3	; Analog Channel and Gain Selection Bits
+                                 .equ	MUX4	= 4	; Analog Channel and Gain Selection Bits
+                                 .equ	ADLAR	= 5	; Left Adjust Result
+                                 .equ	REFS0	= 6	; Reference Selection Bit 0
+                                 .equ	REFS1	= 7	; Reference Selection Bit 1
+                                 
+                                 ; ADCSRA - The ADC Control and Status register
+                                 .equ	ADCSR	= ADCSRA	; For compatibility
+                                 .equ	ADPS0	= 0	; ADC  Prescaler Select Bits
+                                 .equ	ADPS1	= 1	; ADC  Prescaler Select Bits
+                                 .equ	ADPS2	= 2	; ADC  Prescaler Select Bits
+                                 .equ	ADIE	= 3	; ADC Interrupt Enable
+                                 .equ	ADIF	= 4	; ADC Interrupt Flag
+                                 .equ	ADFR	= 5	; ADC  Free Running Select
+                                 .equ	ADSC	= 6	; ADC Start Conversion
+                                 .equ	ADEN	= 7	; ADC Enable
+                                 
+                                 ; ADCH - ADC Data Register High Byte
+                                 .equ	ADCH0	= 0	; ADC Data Register High Byte Bit 0
+                                 .equ	ADCH1	= 1	; ADC Data Register High Byte Bit 1
+                                 .equ	ADCH2	= 2	; ADC Data Register High Byte Bit 2
+                                 .equ	ADCH3	= 3	; ADC Data Register High Byte Bit 3
+                                 .equ	ADCH4	= 4	; ADC Data Register High Byte Bit 4
+                                 .equ	ADCH5	= 5	; ADC Data Register High Byte Bit 5
+                                 .equ	ADCH6	= 6	; ADC Data Register High Byte Bit 6
+                                 .equ	ADCH7	= 7	; ADC Data Register High Byte Bit 7
+                                 
+                                 ; ADCL - ADC Data Register Low Byte
+                                 .equ	ADCL0	= 0	; ADC Data Register Low Byte Bit 0
+                                 .equ	ADCL1	= 1	; ADC Data Register Low Byte Bit 1
+                                 .equ	ADCL2	= 2	; ADC Data Register Low Byte Bit 2
+                                 .equ	ADCL3	= 3	; ADC Data Register Low Byte Bit 3
+                                 .equ	ADCL4	= 4	; ADC Data Register Low Byte Bit 4
+                                 .equ	ADCL5	= 5	; ADC Data Register Low Byte Bit 5
+                                 .equ	ADCL6	= 6	; ADC Data Register Low Byte Bit 6
+                                 .equ	ADCL7	= 7	; ADC Data Register Low Byte Bit 7
+                                 
+                                 
+                                 
+                                 ; ***** LOCKSBITS ********************************************************
+                                 .equ	LB1	= 0	; Lock bit
+                                 .equ	LB2	= 1	; Lock bit
+                                 .equ	BLB01	= 2	; Boot Lock bit
+                                 .equ	BLB02	= 3	; Boot Lock bit
+                                 .equ	BLB11	= 4	; Boot lock bit
+                                 .equ	BLB12	= 5	; Boot lock bit
+                                 
+                                 
+                                 ; ***** FUSES ************************************************************
+                                 ; LOW fuse bits
+                                 .equ	CKSEL0	= 0	; Select Clock Source
+                                 .equ	CKSEL1	= 1	; Select Clock Source
+                                 .equ	CKSEL2	= 2	; Select Clock Source
+                                 .equ	CKSEL3	= 3	; Select Clock Source
+                                 .equ	SUT0	= 4	; Select start-up time
+                                 .equ	SUT1	= 5	; Select start-up time
+                                 .equ	BODEN	= 6	; Brown out detector enable
+                                 .equ	BODLEVEL	= 7	; Brown out detector trigger level
+                                 
+                                 ; HIGH fuse bits
+                                 .equ	BOOTRST	= 0	; Select Reset Vector
+                                 .equ	BOOTSZ0	= 1	; Select Boot Size
+                                 .equ	BOOTSZ1	= 2	; Select Boot Size
+                                 .equ	EESAVE	= 3	; EEPROM memory is preserved through chip erase
+                                 .equ	CKOPT	= 4	; Oscillator Options
+                                 .equ	SPIEN	= 5	; Enable Serial programming and Data Downloading
+                                 .equ	JTAGEN	= 6	; Enable JTAG
+                                 .equ	OCDEN	= 7	; Enable OCD
+                                 
+                                 ; EXTENDED fuse bits
+                                 .equ	WDTON	= 0	; Watchdog timer always on
+                                 .equ	M103C	= 1	; ATmega103 compatibility mode
+                                 
+                                 
+                                 
+                                 ; ***** CPU REGISTER DEFINITIONS *****************************************
+                                 .def	XH	= r27
+                                 .def	XL	= r26
+                                 .def	YH	= r29
+                                 .def	YL	= r28
+                                 .def	ZH	= r31
+                                 .def	ZL	= r30
+                                 
+                                 
+                                 
+                                 ; ***** DATA MEMORY DECLARATIONS *****************************************
+                                 .equ	FLASHEND	= 0xffff	; Note: Word address
+                                 .equ	IOEND	= 0x00ff
+                                 .equ	SRAM_START	= 0x0100
+                                 .equ	SRAM_SIZE	= 4096
+                                 .equ	RAMEND	= 0x10ff
+                                 .equ	XRAMEND	= 0xffff
+                                 .equ	E2END	= 0x0fff
+                                 .equ	EEPROMEND	= 0x0fff
+                                 .equ	EEADRBITS	= 12
+                                 #pragma AVRPART MEMORY PROG_FLASH 131072
+                                 #pragma AVRPART MEMORY EEPROM 4096
+                                 #pragma AVRPART MEMORY INT_SRAM SIZE 4096
+                                 #pragma AVRPART MEMORY INT_SRAM START_ADDR 0x100
+                                 
+                                 
+                                 
+                                 ; ***** BOOTLOADER DECLARATIONS ******************************************
+                                 .equ	NRWW_START_ADDR	= 0xf000
+                                 .equ	NRWW_STOP_ADDR	= 0xffff
+                                 .equ	RWW_START_ADDR	= 0x0
+                                 .equ	RWW_STOP_ADDR	= 0xefff
+                                 .equ	PAGESIZE	= 128
+                                 .equ	FIRSTBOOTSTART	= 0xfe00
+                                 .equ	SECONDBOOTSTART	= 0xfc00
+                                 .equ	THIRDBOOTSTART	= 0xf800
+                                 .equ	FOURTHBOOTSTART	= 0xf000
+                                 .equ	SMALLBOOTSTART	= FIRSTBOOTSTART
+                                 .equ	LARGEBOOTSTART	= FOURTHBOOTSTART
+                                 
+                                 
+                                 
+                                 ; ***** INTERRUPT VECTORS ************************************************
+                                 .equ	INT0addr	= 0x0002	; External Interrupt Request 0
+                                 .equ	INT1addr	= 0x0004	; External Interrupt Request 1
+                                 .equ	INT2addr	= 0x0006	; External Interrupt Request 2
+                                 .equ	INT3addr	= 0x0008	; External Interrupt Request 3
+                                 .equ	INT4addr	= 0x000a	; External Interrupt Request 4
+                                 .equ	INT5addr	= 0x000c	; External Interrupt Request 5
+                                 .equ	INT6addr	= 0x000e	; External Interrupt Request 6
+                                 .equ	INT7addr	= 0x0010	; External Interrupt Request 7
+                                 .equ	OC2addr	= 0x0012	; Timer/Counter2 Compare Match
+                                 .equ	OVF2addr	= 0x0014	; Timer/Counter2 Overflow
+                                 .equ	ICP1addr	= 0x0016	; Timer/Counter1 Capture Event
+                                 .equ	OC1Aaddr	= 0x0018	; Timer/Counter1 Compare Match A
+                                 .equ	OC1Baddr	= 0x001a	; Timer/Counter Compare Match B
+                                 .equ	OVF1addr	= 0x001c	; Timer/Counter1 Overflow
+                                 .equ	OC0addr	= 0x001e	; Timer/Counter0 Compare Match
+                                 .equ	OVF0addr	= 0x0020	; Timer/Counter0 Overflow
+                                 .equ	SPIaddr	= 0x0022	; SPI Serial Transfer Complete
+                                 .equ	URXC0addr	= 0x0024	; USART0, Rx Complete
+                                 .equ	UDRE0addr	= 0x0026	; USART0 Data Register Empty
+                                 .equ	UTXC0addr	= 0x0028	; USART0, Tx Complete
+                                 .equ	ADCCaddr	= 0x002a	; ADC Conversion Complete
+                                 .equ	ERDYaddr	= 0x002c	; EEPROM Ready
+                                 .equ	ACIaddr	= 0x002e	; Analog Comparator
+                                 .equ	OC1Caddr	= 0x0030	; Timer/Counter1 Compare Match C
+                                 .equ	ICP3addr	= 0x0032	; Timer/Counter3 Capture Event
+                                 .equ	OC3Aaddr	= 0x0034	; Timer/Counter3 Compare Match A
+                                 .equ	OC3Baddr	= 0x0036	; Timer/Counter3 Compare Match B
+                                 .equ	OC3Caddr	= 0x0038	; Timer/Counter3 Compare Match C
+                                 .equ	OVF3addr	= 0x003a	; Timer/Counter3 Overflow
+                                 .equ	URXC1addr	= 0x003c	; USART1, Rx Complete
+                                 .equ	UDRE1addr	= 0x003e	; USART1, Data Register Empty
+                                 .equ	UTXC1addr	= 0x0040	; USART1, Tx Complete
+                                 .equ	TWIaddr	= 0x0042	; 2-wire Serial Interface
+                                 .equ	SPMRaddr	= 0x0044	; Store Program Memory Read
+                                 
+                                 .equ	INT_VECTORS_SIZE	= 70	; size in words
+                                 
+                                 #endif  /* _M128DEF_INC_ */
+                                 
+                                 ; ***** END OF FILE ******************************************************
+                                 
+                                  * test_move.asm
+                                  *
+                                  *  Created: 2025-07-17 ?? 12:30:39
+                                  *   Author: kana0
+                                  */ 
+                                      #include "Myinclude.inc"
+                                 
+                                  * Myinclude.inc
+                                  *
+                                  *  Created: 2025-05-05 ?? 2:58:39
+                                  *   Author: kana0
+                                  */ 
+                                 #define		F_CPU		16000000
+                                 #define		BAUDRATE	57600
+                                 #define		BAUDRATE1	38400
+                                 #define		UBRR0		(F_CPU / (BAUDRATE * 16)) - 1 
+                                 #define		UBRR1		(F_CPU / (BAUDRATE1 * 16)) - 1 
+                                 #define		SREG2		r11
+                                 #define		temp		r16
+                                 
+                                  #define		ATS75_TEMP_REG		0					; read only 16bit reg
+                                  #define		ATS75_CONFIG_REG	1					; 8bit reg	read/write
+                                 
+                                  #define		TWIdataH			r12					; read only 16bit reg
+                                  #define		TWIdataL			r13					; 8bit reg	read/write
+                                 
+                                  #define		Quotient			r20					; 8비트 정수를 10진수로 변환 시 사용되는 몫
+                                  //delay 함수 input과 동일하니 주의
+                                  #define		I2Cdata				r24					; i2c 통신을 위하여 온도센서에 보낼 데이터를 저장하는 reg
+                                  #define		I2CAck				r25					; 16bit 데이터를 읽을 때 사용되는 ack/noack 생성용 reg
+                                 
+                                 #define		TAP			0x09
+                                 #define		CTRL_C		0x03
+                                 #define		LF			0x0A							; move the cursor to the next line
+                                 #define		CR			0x0D							; enter	(return the cursor to start of line)
+                                 #define		EOS			0x00 ; end of string
+                                 #define		BS			0x7f
+                                 
+                                  #define	CDS_1Lux	564  ;0x0234
+                                  #define	CDS_10Lux	871  ;0x0367
+                                  #define	CDS_100Lux	987  ;0x03db
+                                 
+                                  #define	ADdataL		r14
+                                  #define	ADdataH		r15
+                                  #define	CPdataL		r26
+                                  #define	CPdataH		r27
+                                 
+                                  #define	TESTmode	r23			; testmode register
+                                 
+                                 .macro	SETSP
+                                 	ldi		temp, high(@0)
+                                 	out		SPH,  temp
+                                 	ldi		temp, low(@0)
+                                 	out		SPL,  temp
+                                 .endmacro
+                                 .macro	DELAYMS
+                                 	ldi		r25, high(@0)
+                                 	ldi		r24, low(@0)
+                                 	rcall	delay_ms
+                                 .endmacro
+                                 .macro	DELAYUS
+                                 	ldi		r25, high(@0)
+                                 	ldi		r24, low(@0)
+                                 	rcall	delay_ms
+                                 .endmacro
+                                 .macro	SETXY
+                                 	ldi		@0H, high(@1)
+                                 	ldi		@0L, low(@1)
+                                 .endmacro
+                                 .macro	SETZ
+                                 	ldi		ZH, high(2*@0)
+                                 	ldi		ZL, low(2*@0)
+                                 .endmacro
+                                 .macro	PUTC
+                                 	ldi		r24, @0
+                                 	rcall	PutChar
+                                 .endmacro
+                                 .macro	SET_Register_R0R1
+                                 	ldi		r16, 0x00
+                                 	mov		r0, r16
+                                 	ldi		r16, 0x01
+                                 	mov		r1, r16
+                                 .endmacro
+                                 .macro	PRINT
+                                 	SETZ	@0
+                                 	rcall	PutString
+                                 
+                                  #define	TMODE_LED	0x01	; LED testmode
+                                  #define	TMODE_SEG1	0x02	; seg1 testmode
+                                  #define	TMODE_SEGN	0x03	; segn testmode
+                                  #define	TMODE_BUZ	0x04	; buzer testmode
+                                  #define	TMODE_PHONE	0x05	; phone testmode
+                                  #define	TMODE_PHOTO	0x06	; photo testmode
+                                  #define	TMODE_TEMP	0x07	; photo testmode
+                                  #define	TMODE_PROJ	0x08	; photo testmode
+                                  #define	TESTmode	r23		; testmode register
+                                 
+                                  #define	PNFLAG		r17
+                                 
+                                  #define	refL		r4		
+                                  #define	refH		r5
+                                 
+                                  #define	Ang_AC_XH	r9
+                                  #define	Ang_AC_XL	r8
+                                  #define	Ang_AC_YH	r7
+                                  #define	Ang_AC_YL	r6
+                                 
+                                  #define	Ang_GY_XH	r21
+                                  #define	Ang_GY_XL	r20
+                                  #define	Ang_GY_YH	r19
+                                  #define	Ang_GY_YL	r18
+                                 
+                                  #define	P_comH		r15
+                                  #define	P_comL		r14
+                                  
+                                  .CSEG
+                                 	.ORG 0x0000 ;
+000000 940c 0046                 	JMP		RESET
+                                 	.ORG 0x00A
+00000a 940c 016d                 	jmp		Ext_Int4
+                                 	.ORG 0x000C
+00000c 940c 0160                 	jmp		Ext_Int5	; stop
+                                 	.ORG 0x000E
+00000e 940c 0184                 	jmp		Ext_Int6	;mpu data read + pwm calculation
+                                 	.ORG 0x0014
+                                 	;jmp		Timer2_ovf
+                                 	.ORG 0x001C
+                                 	;jmp		Timer1_ovf
+                                 	.ORG 0x0024
+                                 	;jmp		UART_RXInt
+                                 	.ORG 0x003C
+00003c 940c 00d1                 	jmp		USART1_RXC
+                                 	.ORG 0x0046;
+                                 
+                                  RESET:
+                                 
+000046 e100
+000047 bf0e
+000048 ef0f
+000049 bf0d                      	SETSP RAMEND		  ; Set Stack Pointer
+00004a e000
+00004b 2e00
+00004c e001
+00004d 2e10                      	SET_Register_R0R1
+                                 	
+00004e d104                      	rcall	ExInt_Init
+                                 
+00004f ef0f                      	ldi		temp, 0xff
+000050 2f70                      	mov		TESTmode, temp
+000051 9478                      	sei
+                                 BF_START:
+000052 1570                      	cp		TESTmode, r0
+000053 f009                      	breq	START
+000054 cffd                      	rjmp	BF_START
+                                 
+                                 START:
+000055 94f8                      	cli
+                                 
+000056 ef0f                      	ldi		temp, 0xff
+000057 bb0a                      	out		DDRA, temp
+                                 
+000058 bb04                      	out		DDRC, temp; set portC output
+                                 
+000059 e00f                      	ldi		temp, 0x0f
+00005a 9300 0064                 	sts		DDRG, temp; set portG low,output
+00005c 9300 0065                 	sts		PORTG, temp
+00005e ef0f                      	ldi		temp, 0xff
+00005f bb05                      	out		PORTC, temp
+                                 
+                                 
+                                 
+000060 2f70                      	mov		TESTmode, temp
+                                 
+                                 
+000061 e005                      	ldi		temp, 0x05
+000062 bb0b                      	out		PORTA, temp
+                                 
+                                 	;****************************************************pwm 생성
+                                 	; 1. 출력지정
+000063 b307                      	in		temp, DDRB
+000064 6c00                      	ori		temp, (1<<PB6)|(1<<PB7)
+000065 bb07                      	out		DDRB, temp
+                                 
+                                 	; 2. Fast PWM 모드(WGM) + Non-inverting in fast pwm mode (COM1B) + 분주비(CS)
+000066 e20a                      	ldi		temp, (1<<COM1B1)|(1<<COM1C1)|(1<<WGM11)
+000067 bd0f                      	out		TCCR1A, temp
+000068 e10b                      	ldi		temp, (1<<WGM13)|(1<<WGM12)|(1<<CS11)|(1<<CS10)
+000069 bd0e                      	out		TCCR1B, temp
+                                 
+                                 	; 초기화
+00006a e000                      	ldi		temp, 0
+00006b bd0d                      	out		TCNT1H, temp
+00006c bd0c                      	out		TCNT1L, temp
+                                 	
+                                 	; 3. top 지정 
+00006d e005                      	ldi		temp, high(1500)
+00006e bd07                      	out		ICR1H, temp
+00006f ed0c                      	ldi		temp, low(1500)
+000070 bd06                      	out		ICR1L, temp 
+                                 	
+                                 	; 4. duty 지정			pid 사용
+000071 e000                      	ldi		temp, high(10)
+000072 bd09                      	out		OCR1BH, temp
+000073 e00a                      	ldi		temp, low(10)
+000074 bd08                      	out		OCR1BL, temp
+                                 
+000075 e000                      	ldi		temp, high(10)
+000076 9300 0079                 	sts		OCR1CH, temp
+000078 e00a                      	ldi		temp, low(10)
+000079 9300 0078                 	sts		OCR1CL, temp
+                                 	;-----------------------------------------------------------------------
+00007b 2700                      	clr		temp
+00007c e0b1
+00007d e5a1                      	SETXY	X, RawAccelBuffer
+00007e 930d                      	st		X+, temp
+00007f 930d                      	st		X+, temp
+000080 930d                      	st		X+, temp
+000081 930d                      	st		X+, temp
+000082 930d                      	st		X+, temp
+                                 
+000083 930d                      	st		X+, temp
+000084 930d                      	st		X+, temp
+000085 930d                      	st		X+, temp
+000086 930d                      	st		X+, temp
+000087 930d                      	st		X+, temp
+                                 
+000088 930d                      	st		X+, temp
+000089 930d                      	st		X+, temp
+00008a 930d                      	st		X+, temp
+00008b 930d                      	st		X+, temp
+00008c 930d                      	st		X+, temp
+                                 
+00008d 930d                      	st		X+, temp
+00008e 930d                      	st		X+, temp
+00008f 930d                      	st		X+, temp
+000090 930d                      	st		X+, temp
+000091 930d                      	st		X+, temp
+                                 
+000092 930d                      	st		X+, temp
+000093 930d                      	st		X+, temp
+000094 930d                      	st		X+, temp
+000095 930d                      	st		X+, temp
+000096 930d                      	st		X+, temp
+                                 
+000097 930d                      	st		X+, temp
+000098 930d                      	st		X+, temp
+000099 930d                      	st		X+, temp
+00009a 930d                      	st		X+, temp
+00009b 930d                      	st		X+, temp
+                                 
+00009c 930d                      	st		X+, temp
+00009d 930d                      	st		X+, temp
+                                 
+00009e d019                      	rcall	UART1_Init
+00009f d025                      	rcall	UART1int_On
+0000a0 d0d9                      	rcall	EX_MPU_Init
+0000a1 d14a                      	rcall	MPU_Init
+0000a2 9478                      	sei
+                                 
+                                 Routine:
+0000a3 1570                      	cp		TESTmode, r0
+0000a4 f009                      	breq	NEST1
+                                 
+                                 
+0000a5 cffd                      	rjmp	Routine
+                                 NEST1:
+0000a6 d056                      	rcall	TWI_Start
+0000a7 ed80                      	ldi     I2Cdata, 0xD0          ; MPU6050 주소 + W
+0000a8 d068                      	rcall   TWI_Write
+0000a9 e68b                      	ldi     I2Cdata, 0x6B          ; PWR_MGMT_1
+0000aa d066                      	rcall   TWI_Write
+0000ab e480                      	ldi     I2Cdata, 0x40          ; SLEEP = 1
+0000ac d064                      	rcall   TWI_Write
+0000ad d05c                      	rcall   TWI_Stop
+                                 
+0000ae 2700                      	clr		temp
+0000af bb0b                      	out		PORTA, temp
+0000b0 bd09                      	out		OCR1BH, temp
+0000b1 bd08                      	out		OCR1BL, temp
+                                 
+0000b2 9300 0079                 	sts		OCR1CH, temp
+0000b4 9300 0078                 	sts		OCR1CL, temp
+0000b6 d014                      	rcall	UART1int_Off
+                                 forever:
+0000b7 cfff                      	rjmp	forever
+                                 ;****************************************************
+                                 #include	"UART1io.asm"
+                                 
+                                  * UART1io.asm
+                                  *
+                                  *  Created: 2025-07-16 ?? 8:34:19
+                                  *   Author: kana0
+                                  */ 
+                                   ;**********************************
+                                 UART1_Init:
+0000b8 e000                      	ldi		temp, high(103)
+0000b9 9300 0098                 	sts		UBRR1H, temp
+0000bb e607                      	ldi		temp, low(103)
+0000bc 9300 0099                 	sts		UBRR1L, temp		; set baudrate 38400
+                                 
+0000be e108                      	ldi		temp, 0x18
+0000bf 9300 009a                 	sts		UCSR1B, temp		; Tx, Rx enable without interrupt
+0000c1 e006                      	ldi		temp, 0x06
+0000c2 9300 009d                 	sts		UCSR1C, temp		; data8 bit, 1 stop bit, no parity bit --- default mode
+0000c4 9508                      ret
+                                 ;*********************************
+                                 UART1int_On:
+0000c5 9100 009a                 	lds		temp, UCSR1B
+0000c7 6800                      	ori		temp, (1<<RXCIE1)	; RXCIE1 == 7  interrupt enable     >> or with 1000000
+0000c8 9300 009a                 	sts		UCSR1B, temp
+0000ca 9508                      	ret
+                                 UART1int_Off:
+0000cb 9100 009a                 	lds		temp, UCSR1B
+0000cd 770f                      	andi	temp, ~(1<<RXCIE1)	; RXCIE1 == 7  interrupt disable    >> and with 0111111
+0000ce 9300 009a                 	sts		UCSR1B, temp
+0000d0 9508                      	ret
+                                 ;*****************************************************
+                                 ;interrupt service routine (RX)
+                                 ;*****************************************************
+                                 USART1_RXC:
+0000d1 94f8                      	cli
+0000d2 b6bf                      	in		SREG2, SREG
+0000d3 938f                      	push	r24
+0000d4 930f                      	push	temp
+                                 	
+                                 	
+0000d5 9180 009c                 	lds		r24, UDR1			; read UDR
+                                 
+0000d7 e0d1
+0000d8 e7c0                      	SETXY	Y, RUN_ROT
+0000d9 8388                      	st		Y, r24
+                                 
+0000da e00f                      	ldi		temp, 0x0f
+                                 
+0000db 3381                      	cpi		r24, 0x31
+0000dc f411                      	brne	WARD_2
+                                 
+0000dd e008                      	ldi		temp, 0x08
+0000de c00c                      	rjmp	WARD_END
+                                 WARD_2:
+0000df 3382                      	cpi		r24, 0x32
+0000e0 f411                      	brne	WARD_3
+                                 
+0000e1 e004                      	ldi		temp, 0x04
+0000e2 c008                      	rjmp	WARD_END
+                                 WARD_3:
+0000e3 3383                      	cpi		r24, 0x33
+0000e4 f411                      	brne	WARD_4
+                                 
+0000e5 e002                      	ldi		temp, 0x02
+0000e6 c004                      	rjmp	WARD_END
+                                 WARD_4:
+0000e7 3384                      	cpi		r24, 0x34
+0000e8 f411                      	brne	WARD_END
+                                 
+0000e9 e001                      	ldi		temp, 0x01
+0000ea c000                      	rjmp	WARD_END
+                                 
+                                 WARD_END:
+0000eb 9300 0065                 	sts		PORTG, temp
+0000ed ef0f                      	ldi		temp, 0xff
+0000ee bb05                      	out		PORTC, temp
+                                 
+0000ef 910f                      	pop		temp
+0000f0 918f                      	pop		r24
+0000f1 bebf                      	out		SREG, SREG2
+0000f2 9478                      	sei
+0000f3 9518                      	reti
+                                 ;******************************************************
+                                 /*
+                                 // UART Transmit -- input r24,		send a character to RS232S port
+                                 PutChar:
+                                 	cpi		r24, CR				; check if r24 == CR
+                                 	brne	PutData
+                                 InsertLF:
+                                 	push	r24					; putchar 하기전 r24 백업 
+                                 	ldi		r24, LF
+                                 	rcall	PutChar				; LF(줄바꾸고) CR(줄처음)
+                                 	pop		r24					; restore r24
+                                 PutData:
+                                 	sbis	UCSR0A, UDRE0		; skip next instruction if bit is set (UDRE0 = 5)
+                                 	rjmp	PutData
+                                 								//put data(r24) into buffer, send data to PC
+                                 	out		UDR0, r24
+                                 ret
+                                 
+                                 // UART Receive -- input r24,		reseive a character from RS232S port
+                                 GetChar1:
+                                 	sbis	UCSR0A, RXC0		; skip next instruction if bit is set (RXC0 = 7)
+                                 	rjmp	GetChar
+                                 								//get the received data(r24) from buffer, send data to AVR board
+                                 	in		r24, UDR0
+                                 ret*/
+                                 ;---------------------------------------------------------
+                                 /*
+                                 PutString:
+                                 	lpm		r24, Z+
+                                 	cpi		r24, EOS
+                                 	breq	EXIT
+                                 	rcall	PutChar
+                                 	rjmp	PutString
+                                 EXIT:
+                                 	ret
+                                 ;-------------------------------------------------------
+                                 PutStringD:						; print string in buffer to terminal
+                                 	ld		r24, Y+
+                                 	cpi		r24, EOS
+                                 	breq	Exit_P
+                                 	rcall	PutChar				; 문자출력
+                                 	rjmp	PutStringD
+                                 Exit_P:
+                                 	ret
+                                 ;---------------------------------------------------------------------
+                                 GetString:						; buffer에 string 저장 + 마지막에 EOS 저장
+                                 	push	r24
+                                 	push	r25
+                                 	push	r28
+                                 	push	r29
+                                 	clr		r25
+                                 
+                                 Loop:
+                                 	rcall	GetChar		; r24에 char 저장
+                                 	cpi		r24, CR
+                                 	breq	Exit_G
+                                 	cpi		r24, BS		; backspace?
+                                 	brne	NotBS
+                                 	;backspace 처리
+                                 	cpi		r25, 0		; 아무것도 입력 안 했으면 무시
+                                 	breq	Loop
+                                 	sbiw	YH:YL, 1
+                                 	dec		r25			; 문자 수 1 감소
+                                 	rcall	PutChar		; 뒤로 이동, space, 뒤로이동
+                                 	rjmp	Loop
+                                 NotBS:
+                                 	inc		r25
+                                 	rcall	PutChar		; echoing
+                                 	st		Y+, r24		; store r24 to buffer
+                                 	rjmp	Loop		; CR(enter) 나올 때까지 반복
+                                 Exit_G:
+                                 	ldi		r24, EOS
+                                 	st		Y, r24
+                                 	pop		r29
+                                 	pop		r28
+                                 	pop		r25
+                                 	pop		r24
+                                 ret
+                                 
+                                 ;*************************************
+                                 // 
+                                 HexDisp:				; print hex format (in = r24, no out)
+                                 	push	temp
+                                 	push	r25
+                                 	mov		r25, r24	; backup r24 for low 4 bit
+                                 	lsr		r24
+                                 	lsr		r24
+                                 	lsr		r24
+                                 	lsr		r24
+                                 	rcall	I2A
+                                 	rcall	PutChar		; print high 4 bit hex
+                                 
+                                 	mov		r24, r25	; restore r24
+                                 	andi	r24, 0x0f
+                                 	rcall	I2A
+                                 	rcall	PutChar		; print low 4 bit hex
+                                 	pop		r25
+                                 	pop		temp
+                                 ret
+                                 
+                                 I2A:					; add offset for integer to ascii (in, out = r24)
+                                 	push	temp
+                                 	cpi		r24, 10
+                                 	brlo	I2A_digit		; if r24 < 10, go to digit conversion
+                                 						; r24 >= 10 → convert to 'A'~'F'
+                                 	subi	r24, 10			; r24 = 0~5
+                                 	ldi		temp, 'A'
+                                 	add		r24, temp		; r24 = 'A' + (0~5)
+                                 	pop		temp
+                                 	ret
+                                 
+                                 I2A_digit:
+                                 	ldi		temp, '0'
+                                 	add		r24, temp		; r24 = '0' + (0~9)
+                                 	pop		temp
+                                 ret
+                                 ;********************************************
+                                 HexDisp1:				; store Y reg to r24 data hex format (in = r24, no out)
+                                 	push	temp
+                                 	push	r25
+                                 	mov		r25, r24	; backup r24 for low 4 bit
+                                 	lsr		r24
+                                 	lsr		r24
+                                 	lsr		r24
+                                 	lsr		r24
+                                 	st		Y+, r24
+                                 	rcall	I2A
+                                 	rcall	PutChar		; print high 4 bit hex
+                                 
+                                 	mov		r24, r25	; restore r24
+                                 	andi	r24, 0x0f
+                                 	st		Y+, r24
+                                 	rcall	I2A
+                                 	rcall	PutChar		; print low 4 bit hex
+                                 	pop		r25
+                                 	pop		temp
+                                 ret
+                                 ;********************************************
+                                 HexDisp2:				; store Y reg to r24 data hex format (in = r24, no out)
+                                 	push	temp
+                                 	push	r25
+                                 	mov		r25, r24	; backup r24 for low 4 bit
+                                 	lsr		r24
+                                 	lsr		r24
+                                 	lsr		r24
+                                 	lsr		r24
+                                 	st		Y+, r24
+                                 	rcall	I2A
+                                 
+                                 	mov		r24, r25	; restore r24
+                                 	andi	r24, 0x0f
+                                 	st		Y+, r24
+                                 	rcall	I2A
+                                 	pop		r25
+                                 	pop		temp
+                                 ret
+                                 #include	"I2C2.asm"
+                                 
+                                  * I2C2.asm
+                                  *
+                                  *  Created: 2025-07-15 ?? 7:00:58
+                                  *   Author: kana0
+                                  */ 
+                                  ;************************************************************
+                                  TWI_Init:
+0000f4 e003                      	ldi		temp, 0x03;
+0000f5 bb02                      	out		PORTD,temp									; 온도센서의 SCL, SCA pull up on
+                                 
+                                 	// Set i2c bitrate to 400K
+0000f6 e00c                      	ldi		temp, 12
+0000f7 9300 0070                 	sts		TWBR, temp
+0000f9 e000                      	ldi		temp, (0<<TWPS1)|(0<<TWPS0)
+0000fa 9300 0071                 	sts		TWSR, temp
+                                 
+0000fc 9508                      	ret
+                                 ;**************************************************************
+                                 TWI_Start:
+0000fd ea04                      	ldi		temp, (1<<TWINT)|(1<<TWSTA)|(1<<TWEN)		; sends START to slave
+0000fe 9300 0074                 	sts		TWCR, temp
+000100 d023                      	rcall	WAIT_TWINT
+000101 9508                      	ret
+                                 ;**************************************************************
+                                 TWI_Off:
+000102 e000                      	ldi		temp, 0x00
+000103 bb02                      	out		PORTD,temp
+                                 
+000104 e000                      	ldi		temp, 0
+000105 9300 0070                 	sts		TWBR, temp
+000107 9300 0071                 	sts		TWSR, temp
+000109 9508                      	ret
+                                 ;**************************************************************
+                                 TWI_Stop:
+00010a e904                      	ldi		temp, (1<<TWINT)|(1<<TWSTO)|(1<<TWEN)		; sends STOP to slave
+00010b 9300 0074                 	sts		TWCR, temp
+00010d ec08                      	ldi		temp, 200
+                                 TWI_Wait4:
+00010e 950a                      	dec		temp
+00010f f7f1                      	brne	TWI_Wait4									;spend w200 cycles for time delay, STOP 조건이 완전히 전송될 시간을 확보하기 위함 STOP 직후 바로 START 등 명령 넣으면 타이밍 문제 발생 가능
+000110 9508                      	ret
+                                 ;**************************************************************
+                                 TWI_Write:
+000111 9380 0073                 	sts		TWDR, I2Cdata
+000113 e804                      	ldi		temp, (1<<TWINT)|(1<<TWEN)
+000114 9300 0074                 	sts		TWCR, temp
+000116 d00d                      	rcall	WAIT_TWINT
+000117 9508                      	ret
+                                 ;**************************************************************
+                                 
+                                 TWI_Read:
+000118 930f                      	push	temp
+000119 e804                      	ldi		temp, (1<<TWINT)|(1<<TWEN)|(0<<TWEA)
+00011a 3090                      	cpi		I2CAck, 0
+00011b f009                      	breq	SecondRead
+                                 FirstRead:
+00011c ec04                      	ldi		temp, (1<<TWINT)|(1<<TWEN)|(1<<TWEA)		; Ack genneration < 수신 후 ack전송 > 한 번 더 수신
+                                 SecondRead:
+00011d 9300 0074                 	sts		TWCR, temp
+                                 
+00011f d004                      	rcall	WAIT_TWINT
+                                 
+000120 9180 0073                 	lds		r24, TWDR		;store read data
+000122 910f                      	pop		temp
+000123 9508                      	ret
+                                 
+                                 
+                                 
+                                 WAIT_TWINT:
+000124 24aa                      	clr		r10
+000125 ef2a                      	ldi		r18, 250
+                                 WAIT_LOOP:
+000126 9100 0074                 	lds		temp, TWCR
+000128 ff07                      	sbrs	temp, TWINT
+000129 c001                      	rjmp	NO_DONE
+00012a 9508                      	ret
+                                 NO_DONE:
+00012b 952a                      	dec		r18
+00012c f7c9                      	brne	WAIT_LOOP
+                                 
+                                 ;TIMEOUT_handler
+                                     ; Stop 조건 강제 전송
+00012d dfdc                          rcall	TWI_Stop
+                                 
+                                     ; 에러 플래그 세팅, 상태 플래그 등 처리
+                                     ; 예: ldi r_error, 1
+00012e e0b1
+00012f e6af                      	SETXY	X, HARD_RE
+000130 910c                      	ld		temp, X
+000131 9503                      	inc		temp
+000132 930c                      	st		X, temp
+000133 94a3                      	inc		r10
+                                 #include	"Timer.asm"
+000134 9508                      
+                                  * Timer.asm
+                                  *
+                                  *  Created: 2025-05-14 ?? 1:42:52
+                                  *   Author: kana0
+                                  */ 
+                                 ;*****************************************
+                                 
+                                 ;****************************************
+                                 Timer2_Init:
+000135 e007                      	ldi		temp, 0x07
+000136 bd05                      	out		TCCR2, temp			 ; timer clk = 16Mhz / 1064 / 256 = 주기 == 약 59 hz
+                                 
+000137 e000                      	ldi		temp,  0			 ; 초기값/기준값
+000138 bd04                      	out		TCNT2, temp	 
+                                 
+000139 e400                      	ldi		temp, 0x40			 ;ldi	temp, 1<<6
+00013a bf07                      	out		TIMSK, temp			; timer2-overflow interrupt 활성화
+00013b 9508                      ret
+                                 ;*****************************************
+                                 
+                                 Timer2_ovf:						 ; change BUZmode for make sound i want(pulse)
+00013c 94f8                      	cli
+00013d b6bf                      	in		SREG2, SREG			; back up status reg
+00013e 930f                      	push	temp
+                                 
+                                 
+00013f e0d1
+000140 e6cf                      	SETXY	Y, HARD_RE
+000141 8108                      	ld		temp, Y 
+000142 9503                      	inc		temp
+                                 
+000143 300a                      	cpi		temp, 10
+000144 f010                      	brlo	END_TIMER	
+                                 	
+000145 e000                      	ldi		temp, 0
+000146 bb0b                      	out		PORTA, temp
+                                 
+                                 END_TIMER:
+                                 	
+000147 8308                      	st		Y, temp
+                                 
+000148 910f                      	pop		temp
+000149 bebf                      	OUT		SREG, SREG2			; restore status reg
+00014a 9478                      	sei
+00014b 9518                      reti
+                                 	;****************************************
+                                 Timer2_Init2:
+00014c e005                      	ldi		temp, 0x05
+00014d bd05                      	out		TCCR2, temp		; timer clk = 16Mhz / 8
+                                 
+00014e e000                      	ldi		temp, 0		  ; 초기값/기준값
+00014f bd04                      	out		TCNT2, temp	 
+                                 
+000150 e400                      	ldi		temp, 0x40
+000151 bf07                      	out		TIMSK, temp			; timer3-overflow interrupt 활성화
+000152 9508                      ret
+                                 ;*****************************************
+                                 #include	"EXint.asm"
+                                 
+                                  * EXint.asm
+                                  *
+                                  *  Created: 2025-05-14 ?? 1:43:05
+                                  *   Author: kana0
+                                  */ 
+                                  ;***************************************
+                                 ExInt_Init:
+000153 94f8                      	cli
+                                 
+000154 e000                      	ldi		temp, low(0x00)
+000155 9300 006a                 	sts		EICRA, temp
+000157 e002                      	ldi		temp, low(0x02)
+000158 bf0a                      	out		EICRB, temp		; use ex interrupt 4,5 as Falling edge
+                                 
+000159 e100                      	ldi		temp, 0x10
+00015a bf09                      	out		EIMSK, temp		; set ex interrupt 4,5 enable
+                                 
+00015b 9478                      	sei
+00015c 9508                      ret
+                                 
+                                 ExInt_Off:
+00015d e000                      	ldi		temp, 0x00
+00015e bf09                      	out		EIMSK, temp		; set ex interrupt 4,5 disable
+00015f 9508                      	ret
+                                 ;*******************************************
+                                 Ext_Int5: ; ex interrupt 5 service routine
+000160 94f8                      	cli
+000161 b6bf                      	in		SREG2, SREG
+000162 938f                      	push	r24
+000163 939f                      	push	r25				; in DELAYS func
+                                 
+000164 2777                      	clr		TESTmode	; change state of timer
+000165 e090
+000166 e08a
+000167 d070                      	DELAYMS	10				; wait 10m sec for protection from glitch
+                                 
+000168 919f                      	pop		r25
+000169 918f                      	pop		r24
+00016a bebf                      	out		SREG, SREG2
+00016b 9478                      	sei
+00016c 9518                      reti
+                                 ;********************************************************
+                                 Ext_Int4: ; ex interrupt 4 service routine
+00016d 94f8                      	cli
+00016e b6bf                      	in		SREG2, SREG
+00016f 938f                      	push	r24
+000170 939f                      	push	r25				; in DELAYS func
+                                 
+000171 2777                      	clr		TESTmode	; change state of timer
+000172 e090
+000173 e08a
+000174 d063                      	DELAYMS	10				; wait 10m sec for protection from glitch
+                                 
+000175 919f                      	pop		r25
+000176 918f                      	pop		r24
+000177 bebf                      	out		SREG, SREG2
+000178 9478                      	sei
+000179 9518                      reti
+                                 ;*******************************************************
+                                 EX_MPU_Init:
+00017a 94f8                      	cli
+                                 
+00017b e000                      	ldi		temp, low(0x00)
+00017c 9300 006a                 	sts		EICRA, temp
+00017e e308                      	ldi		temp, low(0x38)
+00017f bf0a                      	out		EICRB, temp		; use ex interrupt 5 as Falling edge, 6 as rising edge
+                                 
+000180 e600                      	ldi		temp, 0x60
+000181 bf09                      	out		EIMSK, temp		; set ex interrupt 5,6 enable
+                                 
+000182 9478                      	sei
+000183 9508                      ret
+                                 ;************************************************
+                                 Ext_Int6:
+000184 9478                      	sei
+000185 b6bf                      	in		SREG2, SREG
+000186 93ff                      	push	r31
+000187 93ef                      	push	r30
+000188 93df                      	push	r29
+000189 93cf                      	push	r28
+00018a 93bf                      	push	r27
+00018b 93af                      	push	r26
+00018c 939f                      	push	r25
+00018d 938f                      	push	r24
+00018e 937f                      	push	r23
+00018f 936f                      	push	r22
+000190 935f                      	push	r21
+000191 934f                      	push	r20
+000192 933f                      	push	r19
+000193 932f                      	push	r18
+000194 931f                      	push	r17
+000195 930f                      	push	r16
+000196 92ff                      	push	r15
+000197 92ef                      	push	r14
+000198 92df                      	push	r13
+000199 92cf                      	push	r12
+00019a 92bf                      	push	r11
+00019b 92af                      	push	r10
+00019c 929f                      	push	r9
+00019d 928f                      	push	r8
+00019e 927f                      	push	r7
+00019f 926f                      	push	r6
+0001a0 925f                      	push	r5
+0001a1 924f                      	push	r4
+0001a2 923f                      	push	r3
+0001a3 922f                      	push	r2
+0001a4 921f                      	push	r1
+0001a5 920f                      	push	r0
+                                 
+0001a6 d06e                      	rcall	Read_MPU
+                                 
+0001a7 e0b1
+0001a8 e6af                      	SETXY	X, HARD_RE
+0001a9 910c                      	ld		temp, X
+0001aa 3604                      	cpi		temp, 100		;1 = 일단 에러나면 종료
+0001ab f048                      	brlo	KEEP_GO
+                                 
+0001ac 2700                      	clr		temp
+0001ad bb0b                      	out		PORTA, temp
+0001ae bd09                      	out		OCR1BH, temp
+0001af bd08                      	out		OCR1BL, temp
+                                 
+0001b0 9300 0079                 	sts		OCR1CH, temp
+0001b2 9300 0078                 	sts		OCR1CL, temp
+0001b4 c001                      	rjmp	STOP_PWM
+                                 
+                                 KEEP_GO:
+0001b5 d183                      	rcall	DUTY_GEN
+                                 STOP_PWM:
+0001b6 900f                      	pop		r0
+0001b7 901f                      	pop		r1
+0001b8 902f                      	pop		r2
+0001b9 903f                      	pop		r3
+0001ba 904f                      	pop		r4
+0001bb 905f                      	pop		r5
+0001bc 906f                      	pop		r6
+0001bd 907f                      	pop		r7
+0001be 908f                      	pop		r8
+0001bf 909f                      	pop		r9
+0001c0 90af                      	pop		r10
+0001c1 90bf                      	pop		r11
+0001c2 90cf                      	pop		r12
+0001c3 90df                      	pop		r13
+0001c4 90ef                      	pop		r14
+0001c5 90ff                      	pop		r15
+0001c6 910f                      	pop		r16
+0001c7 911f                      	pop		r17
+0001c8 912f                      	pop		r18
+0001c9 913f                      	pop		r19
+0001ca 914f                      	pop		r20
+0001cb 915f                      	pop		r21
+0001cc 916f                      	pop		r22
+0001cd 917f                      	pop		r23
+0001ce 918f                      	pop		r24
+0001cf 919f                      	pop		r25
+0001d0 91af                      	pop		r26
+0001d1 91bf                      	pop		r27
+0001d2 91cf                      	pop		r28
+0001d3 91df                      	pop		r29
+0001d4 91ef                      	pop		r30
+0001d5 91ff                      	pop		r31
+0001d6 bebf                      	out		SREG, SREG2
+                                 #include	"Delay.asm"
+0001d7 9518                      
+                                  * Delay.asm
+                                  *
+                                  *  Created: 2025-05-05 ?? 3:16:29
+                                  *   Author: kana0
+                                  */ 
+                                  ; time delay funcion (r25:r24 mili seconds)
+                                 delay_ms:
+0001d8 940e 01dd                 	call	delay1mS
+0001da 9701                      	sbiw	r25:r24, 1 
+0001db f7e1                      	brne	delay_ms
+0001dc 9508                      ret	
+                                 
+                                 delay1mS:    ; 약 16000 clk >  약 1ms 지연
+0001dd 93df                      	push	YH				
+0001de 93cf                      	push	YL		
+0001df e9cb                      	ldi YL, low(((F_CPU/1000)-18)/4) ;  ~4000
+0001e0 e0df                      	ldi YH, high(((F_CPU/1000)-18)/4)
+                                 
+                                 delay1ms_01:  ; 약 4clk을 4000번 반복
+0001e1 9721                      	sbiw	YH:YL, 1
+0001e2 f7f1                      	brne	delay1ms_01	
+                                 
+0001e3 91df                      	pop	YH							 
+0001e4 91cf                      	pop YL							 
+0001e5 9508                      ret	
+                                 
+                                 delay4us:
+0001e6 938f                      	push	r24
+0001e7 ec88                      	ldi		r24, 200		; 약 10us (16MHz 기준)  50
+0001e8 958a                      L1:	dec		r24
+0001e9 f7f1                      	brne	L1
+0001ea 918f                      	pop		r24
+0001eb 9508                      ;******************************************************
+                                 MPU_Init:
+                                 	; 초기화
+                                 ;==============================
+                                 ; 슬립 모드 해제 (0x6B ← 0x00)
+                                 ;==============================
+0001ec df10                      	rcall	TWI_Start
+0001ed ed80                      	ldi		I2Cdata, 0xD0			; SLA+W (0x68 << 1)
+0001ee df22                      	rcall	TWI_Write
+0001ef e68b                      	ldi		I2Cdata, 0x6B			; PWR_MGMT_1
+0001f0 df20                      	rcall	TWI_Write
+0001f1 e080                      	ldi		I2Cdata, 0x00			; 슬립 비트 클리어
+0001f2 df1e                      	rcall	TWI_Write
+0001f3 df16                      	rcall	TWI_Stop
+                                 
+                                 	; sample rate 설정
+0001f4 df08                      	rcall	TWI_Start
+0001f5 ed80                      	ldi		I2Cdata, 0xD0			; SLA+W
+0001f6 df1a                      	rcall	TWI_Write
+0001f7 e189                      	ldi		I2Cdata, 0x19			; SMPLRT_DIV
+0001f8 df18                      	rcall	TWI_Write
+0001f9 e78c                      	ldi		I2Cdata, 0x7c			; 8khz / 1+249  = 32 hz  [0xfa]			(DLPF is disable = 8k, enable = 1k)
+0001fa df16                      	rcall	TWI_Write				; 8khz / 1+124  = 64 hz  [0x7c]						>>	1khz / 1+14  = 66 hz [0x0e]
+0001fb df0e                      	rcall	TWI_Stop				; 8khz / 1+62  = 128 hz  [0x3e]
+                                 	
+                                 	; gyro scale 설정
+0001fc df00                      	rcall	TWI_Start
+0001fd ed80                      	ldi		I2Cdata, 0xD0			; SLA+W
+0001fe df12                      	rcall	TWI_Write
+0001ff e18b                      	ldi		I2Cdata, 0x1B			; gyro_config
+000200 df10                      	rcall	TWI_Write
+000201 e188                      	ldi		I2Cdata, 0x18			; +2000'/s max  ,  -2000'/s min
+000202 df0e                      	rcall	TWI_Write
+000203 df06                      	rcall	TWI_Stop
+                                 	
+                                 	
+                                 	; accel scale 설정
+000204 def8                      	rcall	TWI_Start
+000205 ed80                      	ldi		I2Cdata, 0xD0			; SLA+W
+000206 df0a                      	rcall	TWI_Write
+000207 e18c                      	ldi		I2Cdata, 0x1C			; accel_config
+000208 df08                      	rcall	TWI_Write
+000209 e188                      	ldi		I2Cdata, 0x18			; +16 g max  ,  -16 g min
+00020a df06                      	rcall	TWI_Write
+00020b defe                      	rcall	TWI_Stop
+                                 	
+                                 	; data ready interrupt enable
+00020c def0                      	rcall	TWI_Start
+00020d ed80                      	ldi		I2Cdata, 0xD0			; SLA+W
+00020e df02                      	rcall	TWI_Write
+00020f e388                      	ldi		I2Cdata, 0x38			; INT_ENABLE
+000210 df00                      	rcall	TWI_Write
+000211 e081                      	ldi		I2Cdata, 0x01			; data ready interrupt enable
+000212 defe                      	rcall	TWI_Write
+000213 def6                      	rcall	TWI_Stop
+000214 9508                      ret
+                                 	;**************************************************************************
+                                 Read_MPU:
+000215 24aa                      	clr		r10
+                                 ;==============================
+                                 ; 가속도계 데이터 읽기 시작 (0x3B부터 14바이트)
+                                 ;==============================
+000216 dee6                      	rcall	TWI_Start
+000217 ed80                      	ldi		I2Cdata, 0xD0			; SLA+W
+000218 def8                      	rcall	TWI_Write
+000219 e38b                      	ldi		I2Cdata, 0x3B			; ACCEL_XOUT_H
+00021a def6                      	rcall	TWI_Write
+                                 
+                                 ; Repeated Start → Read 시작
+00021b dee1                      	rcall	TWI_Start
+00021c ed81                      	ldi		I2Cdata, 0xD1			; SLA+R
+00021d def3                      	rcall	TWI_Write
+                                 ;eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+00021e 20aa                      	tst		r10
+00021f f469                      	brne	_ERROR
+                                 ;eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+                                 ; 14바이트 수신 (ACK 5회, 마지막 NACK)
+000220 e04e                      	ldi		r20, 14					; 반복 횟수
+000221 e5e1                      	ldi		ZL, low(RawAccelBuffer)
+000222 e0f1                      	ldi		ZH, high(RawAccelBuffer)
+                                 
+                                 ReadLoop:
+000223 954a                      	dec		r20
+000224 2f94                      	mov		I2CAck, r20				; 마지막 바이트일 때만 NACK
+000225 def2                      	rcall	TWI_Read
+000226 9381                      	st		Z+, I2Cdata				; 버퍼에 저장
+000227 2344                      	tst		r20
+000228 f7d1                      	brne	ReadLoop
+                                 
+000229 dee0                      	rcall	TWI_Stop
+                                 ;eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+00022a 20aa                      	tst		r10
+00022b f409                      	brne	_ERROR
+00022c c002                      	rjmp	DONT_SKIP
+                                 _ERROR:	
+00022d 24aa                      	clr		r10
+00022e 9508                      	ret				; 에러 발생 시 각 계산 종료, 이전값 이용
+                                 ;eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+                                 DONT_SKIP:
+00022f e0b1
+000230 e5a1                      	SETXY	X, RawAccelBuffer
+000231 910d                      	ld		temp, X+
+000232 2e50                      	mov		r5, temp
+000233 910d                      	ld		temp, X+
+000234 2e40                      	mov		r4, temp
+                                 	
+000235 d0a4                      	rcall	CONV_DEG_X
+                                 	/*
+                                 	mov		r24, r5
+                                 	rcall	HexDisp
+                                 	PUTC	'.'
+                                 	mov		r24, r4
+                                 	rcall	HexDisp
+                                 	PUTC	' '
+                                 	*/
+                                 	;8888888888888888888888888888888888888888888888888888888888
+000236 e0d1
+000237 e6cb                      	SETXY	Y, P_Ang_AC_X
+000238 90f9                      	ld		r15, Y+
+000239 90e9                      	ld		r14, Y+
+                                 
+00023a 9455                      	asr		r5
+00023b 9447                      	ror		r4
+00023c 94f5                      	asr		r15
+00023d 94e7                      	ror		r14
+                                 
+00023e 0c4e                      	add		r4, r14
+00023f 1c5f                      	adc		r5, r15
+                                 
+000240 e0d1
+000241 e6cb                      	SETXY	Y, P_Ang_AC_X
+000242 9259                      	st		Y+, r5
+000243 9249                      	st		Y+, r4
+                                 	;8888888888888888888888888888888888888888888888888888888
+                                 	; 저장 >>>  angle_accel_x
+000244 2c95                      	mov		Ang_AC_XH, r5
+000245 2c84                      	mov		Ang_AC_XL, r4
+                                 
+                                 
+                                 
+                                 
+000246 910d                      	ld		temp, X+
+000247 2e50                      	mov		r5, temp
+000248 910d                      	ld		temp, X+
+000249 2e40                      	mov		r4, temp
+                                 	
+00024a d0c6                      	rcall	CONV_DEG_Y
+                                 	/*
+                                 	mov		r24, r5
+                                 	rcall	HexDisp
+                                 	PUTC	'.'
+                                 	mov		r24, r4
+                                 	rcall	HexDisp
+                                 	PUTC	' '
+                                 	*/
+                                 	;8888888888888888888888888888888888888888888888888888888888
+00024b e0d1
+00024c e6cd                      	SETXY	Y, P_Ang_AC_Y
+00024d 90f9                      	ld		r15, Y+
+00024e 90e9                      	ld		r14, Y+
+                                 
+00024f 9455                      	asr		r5
+000250 9447                      	ror		r4
+000251 94f5                      	asr		r15
+000252 94e7                      	ror		r14
+                                 
+000253 0c4e                      	add		r4, r14
+000254 1c5f                      	adc		r5, r15
+                                 
+000255 e0d1
+000256 e6cd                      	SETXY	Y, P_Ang_AC_Y
+000257 9259                      	st		Y+, r5
+000258 9249                      	st		Y+, r4
+                                 	;8888888888888888888888888888888888888888888888888888888
+                                 	; 저장 >>  angle_accel_y
+000259 2c75                      	mov		Ang_AC_YH, r5
+00025a 2c64                      	mov		Ang_AC_YL, r4
+                                 
+                                 
+                                 
+                                 
+                                 
+00025b 910d                      	ld		temp, X+
+00025c 2e50                      	mov		r5, temp
+00025d 910d                      	ld		temp, X+
+00025e 2e40                      	mov		r4, temp	;Z
+                                 	
+00025f fc57                          sbrc    r5, 7       ; r5의 7번째 비트(부호 비트)가 0이면 양수 → skip
+000260 c001                          rjmp    Make_Z ; 음수 → 2의 보수화 루틴으로 점프
+                                 	;PUTC	'+'
+000261 c004                          rjmp    DoneZ          ; 양수면 아무 작업도 하지 않고 종료
+                                 
+                                 Make_Z:
+000262 9450                          com     r5           ; 하위 바이트 1의 보수
+000263 9440                          com     r4           ; 상위 바이트 1의 보수
+000264 0c41                          add     r4, r1        ; 1 더해 2의 보수
+000265 1c50                      	adc		r5, r0
+                                 	;PUTC	'-'
+                                 DoneZ:
+000266 9456                      	lsr		r5		; 부호 유지를 위해서는 asr
+000267 9447                      	ror		r4
+                                 	/*
+                                 	mov		r24, r5
+                                 	rcall	HexDisp
+                                 	mov		r24, r4
+                                 	rcall	HexDisp
+                                 	PUTC	' '
+                                 	*/
+                                 	
+                                 
+                                 
+000268 910d                      	ld		temp, X+
+000269 2e50                      	mov		r5, temp
+00026a 910d                      	ld		temp, X+
+00026b 2e40                      	mov		r4, temp	;temp
+                                 	
+                                 
+                                 
+                                 
+00026c 910d                      	ld		temp, X+
+00026d 2e50                      	mov		r5, temp
+00026e 910d                      	ld		temp, X+
+00026f 2e40                      	mov		r4, temp	;*************************각속도 데이터 보수처리는 불필요
+                                 	
+                                 
+                                 	; 각속도 r5:r4 를 각도변화량으로 변환
+000270 9455                      	asr		r5		; 32 hz 일 때 shift 한번, 64 hz 이면 shift 두번
+000271 9447                      	ror		r4
+000272 9455                      	asr		r5
+000273 9447                      	ror		r4
+                                 
+                                 
+                                 
+                                 	/*
+                                 	mov		r24, r5
+                                 	rcall	HexDisp
+                                 	mov		r24, r4
+                                 	rcall	HexDisp
+                                 	PUTC	' '
+                                 	*/
+                                 	;8888888888888888888888888888888888888888888888888888888888
+                                 	/*
+                                 	SETXY	Y, P_Ang_GY_Y
+                                 	ld		r15, Y+
+                                 	ld		r14, Y+
+                                 
+                                 	asr		r5
+                                 	ror		r4
+                                 	asr		r15
+                                 	ror		r14
+                                 
+                                 	add		r4, r14
+                                 	adc		r5, r15
+                                 
+                                 	SETXY	Y, P_Ang_GY_Y
+                                 	st		Y+, r5
+                                 	st		Y+, r4
+                                 	*/
+                                 	;8888888888888888888888888888888888888888888888888888888
+                                 	; 저장 >>  angle_accel_G_y      >>>   x 각속도 데이터는 y 축 각에 영향을 준다
+000274 2d35                      	mov		Ang_GY_YH, r5
+000275 2d24                      	mov		Ang_GY_YL, r4
+                                 
+                                 
+000276 e0d1
+000277 e6c1                      	SETXY	Y, Ang_F_Y
+000278 9059                      	ld		r5, Y+
+000279 8048                      	ld		r4, Y
+00027a 0d24                      	add		Ang_GY_YL, r4		; 변화량 + 기존각
+00027b 1d35                      	adc		Ang_GY_YH, r5
+                                 
+                                 
+                                 
+00027c 910d                      	ld		temp, X+
+00027d 2e50                      	mov		r5, temp
+00027e 910d                      	ld		temp, X+
+00027f 2e40                      	mov		r4, temp	;*************************각속도 데이터 보수처리는 불필요
+                                 	
+                                 
+                                 	; 각속도 r5:r4 를 각도변화량으로 변환
+000280 9455                      	asr		r5		; 32 hz 일 때 shift 한번, 64 hz 이면 shift 두번
+000281 9447                      	ror		r4
+000282 9455                      	asr		r5
+000283 9447                      	ror		r4
+                                 
+                                 
+                                 
+                                 	/*
+                                 	mov		r24, r5
+                                 	rcall	HexDisp
+                                 	mov		r24, r4
+                                 	rcall	HexDisp
+                                 	PUTC	' '
+                                 	*/
+                                 
+                                 	;8888888888888888888888888888888888888888888888888888888888
+                                 	/*
+                                 	SETXY	Y, P_Ang_GY_X
+                                 	ld		r15, Y+
+                                 	ld		r14, Y+
+                                 
+                                 	asr		r5
+                                 	ror		r4
+                                 	asr		r15
+                                 	ror		r14
+                                 
+                                 	add		r4, r14
+                                 	adc		r5, r15
+                                 	
+                                 	SETXY	Y, P_Ang_GY_X
+                                 	st		Y+, r5
+                                 	st		Y+, r4
+                                 	*/
+                                 	;8888888888888888888888888888888888888888888888888888888
+                                 	;  저장 >>  angle_accel_G_x       >>>    y 각속도 데이터는 x 축 각에 영향을 준다
+000284 2d55                      	mov		Ang_GY_XH, r5
+000285 2d44                      	mov		Ang_GY_XL, r4
+                                 
+000286 e0d1
+000287 e5cf                      	SETXY	Y, Ang_F_X
+000288 9059                      	ld		r5, Y+
+000289 8048                      	ld		r4, Y
+00028a 0d44                      	add		Ang_GY_XL, r4		; 변화량 + 기존각
+00028b 1d55                      	adc		Ang_GY_XH, r5
+                                 
+                                 
+                                 
+00028c 910d                      	ld		temp, X+
+00028d 2e50                      	mov		r5, temp
+00028e 910d                      	ld		temp, X+
+00028f 2e40                      	mov		r4, temp
+                                 	
+000290 fc57                          sbrc    r5, 7       ; r5의 7번째 비트(부호 비트)가 0이면 양수 → skip
+000291 c001                          rjmp    Make_GZ ; 음수 → 2의 보수화 루틴으로 점프
+                                 	;PUTC	'+'
+000292 c004                          rjmp    DoneGZ          ; 양수면 아무 작업도 하지 않고 종료
+                                 
+                                 Make_GZ:
+000293 9450                          com     r5           ; 하위 바이트 1의 보수
+000294 9440                          com     r4           ; 상위 바이트 1의 보수
+000295 0c41                          add     r4, r1        ; 1 더해 2의 보수
+000296 1c50                      	adc		r5, r0
+                                 	;PUTC	'-'
+                                 DoneGZ:
+                                 /*
+                                 	mov		r24, r5
+                                 	rcall	HexDisp
+                                 	mov		r24, r4
+                                 	rcall	HexDisp
+                                 	PUTC	' '
+                                 		
+                                 	PUTC	' '
+                                 	PUTC	'|'
+                                 	PUTC	' '
+                                 	*/
+                                 ;****************************************************************
+                                 ; (1-alpha) * Ang_AC  +  (alpha) * Ang_GY			[alpha  = 7/8]
+                                 ; AC는 signed로 연산,     GY는 signed로 연산
+                                 ;****************************************************************
+000297 9495                      	asr		Ang_AC_XH
+000298 9487                      	ror		Ang_AC_XL		; + - 주의
+000299 9495                      	asr		Ang_AC_XH
+00029a 9487                      	ror		Ang_AC_XL
+00029b 9495                      	asr		Ang_AC_XH
+00029c 9487                      	ror		Ang_AC_XL
+00029d 9495                      	asr		Ang_AC_XH
+00029e 9487                      	ror		Ang_AC_XL
+                                 
+00029f 9475                      	asr		Ang_AC_YH
+0002a0 9467                      	ror		Ang_AC_YL
+0002a1 9475                      	asr		Ang_AC_YH
+0002a2 9467                      	ror		Ang_AC_YL
+0002a3 9475                      	asr		Ang_AC_YH
+0002a4 9467                      	ror		Ang_AC_YL
+0002a5 9475                      	asr		Ang_AC_YH
+0002a6 9467                      	ror		Ang_AC_YL
+                                 
+                                 ;*******************************************************************************for debug
+                                 	/*
+                                 	sbrc    Ang_AC_XH, 7       ; r5의 7번째 비트(부호 비트)가 0이면 양수 → skip
+                                     rjmp    TESTTT ; 음수 → 2의 보수화 루틴으로 점프
+                                 	PUTC	'+'
+                                     rjmp    DoneTTT          ; 양수면 아무 작업도 하지 않고 종료
+                                 TESTTT:
+                                     com     Ang_AC_XH           ; 하위 바이트 1의 보수
+                                     com     Ang_AC_XL           ; 상위 바이트 1의 보수
+                                     add     Ang_AC_XL, r1        ; 1 더해 2의 보수
+                                 	adc		Ang_AC_XH, r0
+                                 	PUTC	'-'
+                                 DoneTTT:
+                                 	mov		r24, Ang_AC_XH
+                                 	rcall	HexDisp
+                                 	mov		r24, Ang_AC_XL
+                                 	rcall	HexDisp
+                                 	PUTC	' '
+                                 	
+                                 
+                                 	sbrc    Ang_AC_YH, 7       ; r5의 7번째 비트(부호 비트)가 0이면 양수 → skip
+                                     rjmp    TESTK ; 음수 → 2의 보수화 루틴으로 점프
+                                 	PUTC	'+'
+                                     rjmp    DoneTK          ; 양수면 아무 작업도 하지 않고 종료
+                                 TESTK:
+                                     com     Ang_AC_YH           ; 하위 바이트 1의 보수
+                                     com     Ang_AC_YL           ; 상위 바이트 1의 보수
+                                     add     Ang_AC_YL, r1        ; 1 더해 2의 보수
+                                 	adc		Ang_AC_YH, r0
+                                 	PUTC	'-'
+                                 DoneTK:
+                                 	mov		r24, Ang_AC_YH
+                                 	rcall	HexDisp
+                                 	mov		r24, Ang_AC_YL
+                                 	rcall	HexDisp
+                                 	PUTC	' '*/
+                                 	;***************************************************************************
+                                 		;							초기치 더하기 주의   현재 초기치는 0 >> mpu init 이전 한번 읽고 각 추정 필요
+0002a7 2455                      	clr		r5
+0002a8 2444                      	clr		r4
+                                 
+0002a9 9555                      	asr		Ang_GY_XH
+0002aa 9547                      	ror		Ang_GY_XL		; 1/2
+                                 
+0002ab 2e55                      	mov		r5, Ang_GY_XH
+0002ac 2e44                      	mov		r4, Ang_GY_XL
+                                 
+0002ad 9455                      	asr		r5
+0002ae 9447                      	ror		r4
+                                 
+0002af 0d44                      	add		Ang_GY_XL, r4
+0002b0 1d55                      	adc		Ang_GY_XH, r5	; 1/2 + 1/4
+                                 
+0002b1 9455                      	asr		r5
+0002b2 9447                      	ror		r4
+                                 
+0002b3 0d44                      	add		Ang_GY_XL, r4
+0002b4 1d55                      	adc		Ang_GY_XH, r5	; 1/2 + 1/4 + 1/8
+0002b5 9455                      	asr		r5
+0002b6 9447                      	ror		r4
+                                 
+0002b7 0d44                      	add		Ang_GY_XL, r4
+0002b8 1d55                      	adc		Ang_GY_XH, r5	; 1/2 + 1/4 + 1/8
+                                 
+                                 
+0002b9 2455                      	clr		r5
+0002ba 2444                      	clr		r4
+                                 
+0002bb 9535                      	asr		Ang_GY_YH
+0002bc 9527                      	ror		Ang_GY_YL		; 1/2
+                                 
+0002bd 2e53                      	mov		r5, Ang_GY_YH
+0002be 2e42                      	mov		r4, Ang_GY_YL
+                                 
+0002bf 9455                      	asr		r5
+0002c0 9447                      	ror		r4
+                                 
+0002c1 0d24                      	add		Ang_GY_YL, r4
+0002c2 1d35                      	adc		Ang_GY_YH, r5	; 1/2 + 1/4
+                                 
+0002c3 9455                      	asr		r5
+0002c4 9447                      	ror		r4
+                                 
+0002c5 0d24                      	add		Ang_GY_YL, r4
+0002c6 1d35                      	adc		Ang_GY_YH, r5	; 1/2 + 1/4 + 1/8
+0002c7 9455                      	asr		r5
+0002c8 9447                      	ror		r4
+                                 
+0002c9 0d24                      	add		Ang_GY_YL, r4
+0002ca 1d35                      	adc		Ang_GY_YH, r5	; 1/2 + 1/4 + 1/8
+                                 
+                                 
+                                 
+0002cb 2444                      	clr		r4
+0002cc 2455                      	clr		r5
+                                 
+                                 	; final 
+0002cd 0d26                      	add		Ang_GY_YL, Ang_AC_YL
+0002ce 1d37                      	adc		Ang_GY_YH, Ang_AC_YH
+                                 
+0002cf 0d48                      	add		Ang_GY_XL, Ang_AC_XL
+0002d0 1d59                      	adc		Ang_GY_XH, Ang_AC_XH
+                                 
+                                 	;888888888888888888888888888888888888888888888888888888    LPF
+                                 
+                                 
+                                 	;888888888888888888888888888888888888888888888888888888
+                                 
+                                 	
+                                 	;*** store memory
+                                 
+0002d1 e0d1
+0002d2 e6c1                      	SETXY	Y, Ang_F_Y
+0002d3 9339                      	st		Y+, Ang_GY_YH
+0002d4 9329                      	st		Y+, Ang_GY_YL
+                                 
+0002d5 e0d1
+0002d6 e5cf                      	SETXY	Y, Ang_F_X
+0002d7 9359                      	st		Y+, Ang_GY_XH
+0002d8 9349                      	st		Y+, Ang_GY_XL
+                                 	;*************************************************************************for debug
+                                 
+                                 	/*
+                                 	sbrc    Ang_GY_XH, 7       ; r5의 7번째 비트(부호 비트)가 0이면 양수 → skip
+                                     rjmp    ASD ; 음수 → 2의 보수화 루틴으로 점프
+                                 	PUTC	'+'
+                                     rjmp    SDF          ; 양수면 아무 작업도 하지 않고 종료
+                                 ASD:
+                                     com     Ang_GY_XH           ; 하위 바이트 1의 보수
+                                     com     Ang_GY_XL           ; 상위 바이트 1의 보수
+                                     add     Ang_GY_XL, r1        ; 1 더해 2의 보수
+                                 	adc		Ang_GY_XH, r0
+                                 	PUTC	'-'
+                                 SDF:
+                                 
+                                 	mov		r24, Ang_GY_XH
+                                 	rcall	HexDisp
+                                 	mov		r24, Ang_GY_XL
+                                 	rcall	HexDisp
+                                 	PUTC	' '
+                                 	
+                                 	
+                                 	sbrc    Ang_GY_YH, 7       ; r5의 7번째 비트(부호 비트)가 0이면 양수 → skip
+                                     rjmp    ASDK ; 음수 → 2의 보수화 루틴으로 점프
+                                 	PUTC	'+'
+                                     rjmp    SDFK          ; 양수면 아무 작업도 하지 않고 종료
+                                 ASDK:
+                                     com     Ang_GY_YH           ; 하위 바이트 1의 보수
+                                     com     Ang_GY_YL           ; 상위 바이트 1의 보수
+                                     add     Ang_GY_YL, r1        ; 1 더해 2의 보수
+                                 	adc		Ang_GY_YH, r0
+                                 	PUTC	'-'
+                                 SDFK:
+                                 
+                                 	mov		r24, Ang_GY_YH
+                                 	rcall	HexDisp
+                                 	mov		r24, Ang_GY_YL
+                                 	rcall	HexDisp
+                                 	PUTC	' '
+                                 	*/
+0002d9 9508                      ret
+                                 
+                                 
+                                 CONV_DEG_X:    ; 가속도 r5:r4 를 각도로 변환
+0002da 9455                      	asr		r5		; 부호 유지를 위해서는 asr
+0002db 9447                      	ror		r4
+0002dc 9455                      	asr		r5
+0002dd 9447                      	ror		r4
+                                 
+                                 
+0002de e203                      	ldi		temp, 35		; 무게중심-수평 오차 조정   10
+0002df 1a40                      	sub		r4, temp
+0002e0 0850                      	sbc		r5, r0
+                                 
+0002e1 2711                      	clr		r17
+0002e2 e0d1
+0002e3 e7c0                      	SETXY	Y, RUN_ROT
+0002e4 8118                      	ld		r17, Y
+0002e5 3311                      	cpi		r17, 0x31
+0002e6 f421                      	brne	BACK_WARD
+                                 
+0002e7 e00c                      	ldi		temp, 12		; 전진
+0002e8 1a40                      	sub		r4, temp
+0002e9 0850                      	sbc		r5, r0
+0002ea c005                      	rjmp	ENDWARD
+                                 BACK_WARD:
+0002eb 3312                      	cpi		r17, 0x32
+0002ec f419                      	brne	ENDWARD
+                                 
+0002ed e00c                      	ldi		temp, 12		; 후진
+0002ee 0e40                      	add		r4, temp
+0002ef 1c50                      	adc		r5, r0
+                                 ENDWARD:
+0002f0 2711                      	clr		PNFLAG
+                                 
+                                 	;음수판별
+0002f1 fc57                          sbrc    r5, 7       ; r5의 7번째 비트(부호 비트)가 0이면 양수 → skip
+0002f2 c001                          rjmp    MY ; 음수 → 2의 보수화 루틴으로 점프
+                                 	;PUTC	'+'
+0002f3 c005                          rjmp    PY          ; 양수면 아무 작업도 하지 않고 종료
+                                 
+                                 MY:
+0002f4 9450                          com     r5           ; 하위 바이트 1의 보수
+0002f5 9440                          com     r4           ; 상위 바이트 1의 보수
+0002f6 0c41                          add     r4, r1        ; 1 더해 2의 보수
+0002f7 1c50                      	adc		r5, r0
+                                 	;PUTC	'-'
+0002f8 9510                      	com		PNFLAG		;음수면 ff, 양수면 00
+                                 PY:
+                                 
+                                 
+0002f9 e104                      	ldi		temp, low(532)
+0002fa 1640                      	cp		r4, temp
+0002fb e002                      	ldi		temp, high(532)
+0002fc 0650                      	cpc		r5, temp
+0002fd f438                      	brsh	SAT_DEG
+                                 
+0002fe e0f7
+0002ff e9ec                      	SETZ	LOOK_0
+                                 
+                                 	; 주소변환 + 각 구하기(lpm)
+000300 0c44                      	lsl		r4
+000301 1c55                      	rol		r5	; 2 곱하기
+000302 0de4                      	add		ZL, r4
+000303 1df5                      	adc		ZH, r5
+                                 
+000304 c002                      	rjmp	END_DEG
+                                 SAT_DEG:
+000305 e0fb
+000306 ece6                      	SETZ	LOOK_up
+                                 END_DEG:
+000307 9055                      	lpm		r5, Z+
+000308 9044                      	lpm		r4, Z
+                                 
+                                 	; 음수일 경우 2의 보수
+000309 2311                      	tst		PNFLAG
+00030a f021                      	breq	REM
+00030b 9450                      	com     r5		;-
+00030c 9440                          com     r4
+00030d 0c41                          add     r4, r1
+00030e 1c50                      	adc		r5, r0
+                                 REM:				;+
+00030f 2711                      	clr		PNFLAG
+000310 9508                      	ret
+                                 
+                                 
+                                 CONV_DEG_Y:    ; 가속도 r5:r4 를 각도로 변환
+000311 9455                      	asr		r5		; 부호 유지를 위해서는 asr
+000312 9447                      	ror		r4
+000313 9455                      	asr		r5
+000314 9447                      	ror		r4
+                                 
+                                 
+000315 e00a                      	ldi		temp, 10		; 무게중심-수평 오차 조정 + 가중치
+000316 1a40                      	sub		r4, temp
+000317 0850                      	sbc		r5, r0
+                                 
+                                 
+000318 2711                      	clr		PNFLAG
+                                 
+                                 	;음수판별
+000319 fc57                          sbrc    r5, 7       ; r5의 7번째 비트(부호 비트)가 0이면 양수 → skip
+00031a c001                          rjmp    MY_Y ; 음수 → 2의 보수화 루틴으로 점프
+                                 	;PUTC	'+'
+00031b c005                          rjmp    PYY          ; 양수면 아무 작업도 하지 않고 종료
+                                 
+                                 MY_Y:
+00031c 9450                          com     r5           ; 하위 바이트 1의 보수
+00031d 9440                          com     r4           ; 상위 바이트 1의 보수
+00031e 0c41                          add     r4, r1        ; 1 더해 2의 보수
+00031f 1c50                      	adc		r5, r0
+                                 	;PUTC	'-'
+000320 9510                      	com		PNFLAG		;음수면 ff, 양수면 00
+                                 PYY:
+                                 
+                                 
+000321 e104                      	ldi		temp, low(532)
+000322 1640                      	cp		r4, temp
+000323 e002                      	ldi		temp, high(532)
+000324 0650                      	cpc		r5, temp
+000325 f438                      	brsh	SAT_DEGY
+                                 
+000326 e0f7
+000327 e9ec                      	SETZ	LOOK_0
+                                 
+                                 	; 주소변환 + 각 구하기(lpm)
+000328 0c44                      	lsl		r4
+000329 1c55                      	rol		r5	; 2 곱하기
+00032a 0de4                      	add		ZL, r4
+00032b 1df5                      	adc		ZH, r5
+                                 
+00032c c002                      	rjmp	END_DEGY
+                                 SAT_DEGY:
+00032d e0fb
+00032e ece6                      	SETZ	LOOK_up
+                                 END_DEGY:
+00032f 9055                      	lpm		r5, Z+
+000330 9044                      	lpm		r4, Z
+                                 
+                                 	; 음수일 경우 2의 보수
+000331 2311                      	tst		PNFLAG
+000332 f021                      	breq	REMY
+000333 9450                      	com     r5		;-
+000334 9440                          com     r4
+000335 0c41                          add     r4, r1
+000336 1c50                      	adc		r5, r0
+                                 REMY:				;+
+000337 2711                      	clr		PNFLAG
+000338 9508                      	ret
+                                 
+                                 
+                                 
+                                 DUTY_GEN:
+                                 	
+000339 92ff                      	push	P_comH
+00033a 92ef                      	push	P_comL
+                                 
+00033b e0d1
+00033c e5cf                      	SETXY	Y, Ang_F_X
+                                 
+00033d 90f9                      	ld		P_comH, Y+		;error >>  signed
+00033e 90e9                      	ld		P_comL,	Y+    
+                                 
+00033f e0d1
+000340 e6c3                      	SETXY	Y, Integral
+000341 9059                      	ld		r5, Y+
+000342 9049                      	ld		r4,	Y+			; error 적분 signed
+                                 
+                                 	
+                                 	; 오차가 너무 작으면 적분 생략*******************
+000343 e00a                      	ldi		temp, low(10)
+000344 2f20                      	mov		r18, temp
+000345 e000                      	ldi		temp, high(10)
+000346 2f30                      	mov		r19, temp
+000347 16e2                      	cp		P_comL, r18
+000348 06f3                      	cpc		P_comH, r19	
+000349 f44c                      	brge	END_INTE
+                                 
+00034a ef06                      	ldi		temp, low(-10)
+00034b 2f20                      	mov		r18, temp
+00034c ef0f                      	ldi		temp, high(-10)
+00034d 2f30                      	mov		r19, temp
+00034e 16e2                      	cp		P_comL, r18
+00034f 06f3                      	cpc		P_comH, r19	
+000350 f014                      	brlt	END_INTE
+                                 	;***************************
+                                 
+000351 24ee                      	clr		P_comL
+000352 24ff                      	clr		P_comH		;적분 제거
+                                 
+                                 END_INTE:
+                                 
+000353 0c4e                      	add		r4, P_comL
+000354 1c5f                      	adc		r5, P_comH		;적분
+                                 
+000355 e0d1
+000356 e6c3                      	SETXY	Y, Integral
+000357 9259                      	st		Y+, r5
+000358 9249                      	st		Y+,	r4			; error 적분 저장
+                                 ;P************************************************
+000359 e0d1
+00035a e5cf                      	SETXY	Y, Ang_F_X
+                                 
+00035b 90f9                      	ld		P_comH, Y+		;error >>  signed
+00035c 90e9                      	ld		P_comL,	Y+
+                                 
+00035d 94f5                      	asr		P_comH
+00035e 94e7                      	ror		P_comL
+                                 	
+                                 ;I************************************************
+00035f 9455                      	asr		r5
+000360 9447                      	ror		r4
+000361 9455                      	asr		r5
+000362 9447                      	ror		r4
+000363 9455                      	asr		r5
+000364 9447                      	ror		r4
+000365 9455                      	asr		r5
+000366 9447                      	ror		r4
+                                 
+                                 
+                                 
+                                 
+                                 
+                                 
+000367 0ce4                      	add		P_comL, r4
+000368 1cf5                      	adc		P_comH, r5	;PI 성분
+                                 
+                                 	
+                                 ;D****************************************************
+                                 	; 1. 현재 오차 로딩 (e_now)
+000369 e0d1
+00036a e5cf                      	SETXY   Y, Ang_F_X
+00036b 9139                      	ld      r19, Y+      ; High byte
+00036c 9129                      	ld      r18, Y+      ; Low byte
+                                 	/*
+                                 	ldi		temp, low(200)
+                                 	mov		r4, temp
+                                 	ldi		temp, high(200)
+                                 	mov		r5, temp
+                                 	cp		r18, r4
+                                 	cpc		r19, r5	
+                                 	brge	ST_DIG
+                                 
+                                 	ldi		temp, low(-200)
+                                 	mov		r4, temp
+                                 	ldi		temp, high(-200)
+                                 	mov		r5, temp
+                                 	cp		r18, r4
+                                 	cpc		r19, r5	
+                                 	brlt	ST_DIG
+                                 
+                                 	clr		r18
+                                 	clr		r19
+                                 	rjmp	END_DIG
+                                 	*/
+                                 ST_DIG:
+                                 ; 2. 이전 오차 로딩 (e_prev)
+00036d e0d1
+00036e e6c5                      	SETXY   Y, Prev_Error
+00036f 9159                      	ld      r21, Y+      ; High byte
+000370 9149                      	ld      r20, Y+      ; Low byte
+                                 
+                                 ; 3. e_now - e_prev (signed subtract)
+000371 1b24                      	sub     r18, r20     ; low byte
+000372 0b35                      	sbc     r19, r21     ; high byte → r19:r18 = 미분값
+                                 
+                                 	
+                                 ; 4. D 게인 적용
+                                 
+                                 	;asr     r19
+                                 	;ror     r18		;나누기 시 반응 느려짐 but 적은 오차에서 진동 발생 >> 적은 오차에서 D항 제거
+                                 	;lsl		r18
+                                 	;rol		r19
+                                 
+                                 END_DIG:
+                                 ; 5. 결과를 P_com에 더함 (또는 별도 저장)
+000373 0ee2                      	add     P_comL, r18
+000374 1ef3                      	adc     P_comH, r19
+                                 
+                                 ; 6. 현재 오차를 Prev_Error로 저장
+                                 	; 1. 현재 오차 로딩 (e_now)
+000375 e0d1
+000376 e5cf                      	SETXY   Y, Ang_F_X
+000377 9139                      	ld      r19, Y+      ; High byte
+000378 9129                      	ld      r18, Y+      ; Low byte
+000379 e0d1
+00037a e6c5                      	SETXY   Y, Prev_Error
+00037b 9339                      	st      Y+, r19      ; High byte
+00037c 9329                      	st      Y+, r18      ; Low byte
+                                 
+                                 ;**************************************************************
+00037d 2444                      	clr		r4
+00037e 2455                      	clr		r5
+00037f 2722                      	clr		r18
+000380 2733                      	clr		r19
+                                 
+000381 e0d1
+000382 e7c0                      	SETXY	Y, RUN_ROT
+000383 8118                      	ld		r17, Y
+                                 
+000384 3313                      	cpi		r17, 0x33		;3
+000385 f441                      	brne	RE_ROT
+000386 ea0a                      	ldi		temp, low(170)
+000387 2e40                      	mov		r4, temp
+000388 e000                      	ldi		temp, high(170)
+000389 2e50                      	mov		r5, temp
+                                 
+00038a e10a                      	ldi		temp, low(-230)
+00038b 2f20                      	mov		r18, temp
+00038c ef0f                      	ldi		temp, high(-230)
+00038d 2f30                      	mov		r19, temp
+                                 
+                                 RE_ROT:
+00038e 3314                      	cpi		r17, 0x34		;4
+00038f f441                      	brne	NO_ROT
+000390 e40c                      	ldi		temp, low(-180)
+000391 2e40                      	mov		r4, temp
+000392 ef0f                      	ldi		temp, high(-180)
+000393 2e50                      	mov		r5, temp
+                                 
+000394 ed02                      	ldi		temp, low(210)
+000395 2f20                      	mov		r18, temp
+000396 e000                      	ldi		temp, high(210)
+000397 2f30                      	mov		r19, temp
+                                 NO_ROT:
+000398 0c4e                      	add		r4, P_comL
+000399 1c5f                      	adc		r5, P_comH			; 1번 모터
+00039a 0d2e                      	add		r18, P_comL
+00039b 1d3f                      	adc		r19, P_comH			; 2번 모터
+                                 
+00039c 2711                      	clr		r17
+                                 
+                                 ;**************************************************************
+                                 ;음수 + 방향 판별
+00039d 2700                      	clr		temp
+                                 
+                                 SPIN_CAL:
+00039e fc57                          sbrc    r5, 7       ; r5의 7번째 비트(부호 비트)가 0이면 양수 → skip
+00039f c002                          rjmp    RE_SPIN			; 음수 → 2의 보수화 루틴으로 점프 후 역방향 지정
+                                 	
+0003a0 6001                      	ori		temp, 0x01
+0003a1 c005                          rjmp    SPIN_CAL1          ; 양수면 정방향 지정 후 점프
+                                 
+                                 RE_SPIN:
+0003a2 6002                      	ori		temp, 0x02
+                                 
+0003a3 9450                      	com		r5
+0003a4 9440                      	com		r4
+0003a5 0c41                      	add		r4, r1
+0003a6 1c50                      	adc		r5, r0
+                                 
+                                 SPIN_CAL1:
+0003a7 fd37                          sbrc    r19, 7       ; r5의 7번째 비트(부호 비트)가 0이면 양수 → skip
+0003a8 c002                          rjmp    RE_SPIN1			; 음수 → 2의 보수화 루틴으로 점프 후 역방향 지정
+                                 	
+0003a9 6004                      	ori		temp, 0x04
+0003aa c005                          rjmp    DUTY_CUL          ; 양수면 정방향 지정 후 점프
+                                 
+                                 RE_SPIN1:
+0003ab 6008                      	ori		temp, 0x08
+                                 
+0003ac 9530                      	com		r19
+0003ad 9520                      	com		r18
+0003ae 0d21                      	add		r18, r1
+0003af 1d30                      	adc		r19, r0
+                                 
+                                 DUTY_CUL:		;duty 계산 파트   >> 현재 각도는 unsigned + 고정소수점 (1,7,8) >> 00.00 ~ 2a.70
+                                 	
+0003b0 bb0b                      	out		PORTA, temp
+                                 
+                                 
+0003b1 bc59                      	out		OCR1BH, r5
+0003b2 bc48                      	out		OCR1BL, r4
+                                 
+0003b3 9330 0079                 	sts		OCR1CH, r19
+0003b5 9320 0078                 	sts		OCR1CL, r18
+                                 
+                                 
+                                 
+0003b7 90ef                      	pop		P_comL
+0003b8 90ff                      	pop		P_comH
+0003b9 9508                      	ret
+                                 
+                                 SegData:  ; 0 ~ 16, -, non   FND display data
+0003ba 063f
+0003bb 4f5b
+0003bc 6d66
+0003bd 277d
+0003be 6f7f
+0003bf 7c77
+0003c0 5e58
+0003c1 7179
+0003c2 0040                      	.db	0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x27, 0x7f, 0x6f, 0x77, 0x7c, 0x58, 0x5e, 0x79, 0x71, 0x40, 0x00
+                                 
+                                 PhoneNum:
+0003c3 1111
+0003c4 1111
+0003c5 0011
+0003c6 0001
+0003c7 0410
+0003c8 0800
+0003c9 1007
+0003ca 0701
+0003cb 0802
+0003cc 1111
+0003cd 1111                      	.db 17, 17, 17, 17, 17, 0, 1, 0, 16, 4, 0, 8, 7, 16, 1, 7, 2, 8, 17, 17, 17, 17
+                                 
+                                 
+                                 ; arc sin  look up table for mpu 6050       오차가 크면 연산량 증가되는 문제, 문제 발생 시 cordic algorithm으로 바꿈    or    branch > 10~20개 단위로 case 나누어 연산
+                                 LOOK_0:
+0003ce 0000
+0003cf 1b00
+0003d0 3700
+0003d1 5200
+0003d2 6e00
+0003d3 8900
+0003d4 a500
+0003d5 c100
+0003d6 dc00
+0003d7 f800                      	.db 0x00,0x00 , 0x00,0x1b , 0x00,0x37 , 0x00,0x52 , 0x00,0x6e , 0x00,0x89 , 0x00,0xa5 , 0x00,0xc1 , 0x00,0xdc , 0x00,0xf8
+0003d8 1301
+0003d9 2f01
+0003da 4a01
+0003db 6601
+0003dc 8201
+0003dd 9d01
+0003de b901
+0003df d401
+0003e0 f001
+0003e1 0b02                      	.db 0x01,0x13 , 0x01,0x2f , 0x01,0x4a , 0x01,0x66 , 0x01,0x82 , 0x01,0x9d , 0x01,0xb9 , 0x01,0xd4 , 0x01,0xf0 , 0x02,0x0b
+                                 
+0003e2 2702
+0003e3 4302
+0003e4 5e02
+0003e5 7a02
+0003e6 9502
+0003e7 b102
+0003e8 cd02
+0003e9 e802
+0003ea 0403
+0003eb 1f03                      	.db 0x02,0x27 , 0x02,0x43 , 0x02,0x5e , 0x02,0x7a , 0x02,0x95 , 0x02,0xb1 , 0x02,0xcd , 0x02,0xe8 , 0x03,0x04 , 0x03,0x1f
+0003ec 3b03
+0003ed 5703
+0003ee 7203
+0003ef 8e03
+0003f0 aa03
+0003f1 c503
+0003f2 e103
+0003f3 fc03
+0003f4 1804
+0003f5 3404                      	.db 0x03,0x3b , 0x03,0x57 , 0x03,0x72 , 0x03,0x8e , 0x03,0xaa , 0x03,0xc5 , 0x03,0xe1 , 0x03,0xfc , 0x04,0x18 , 0x04,0x34
+                                 
+0003f6 4f04
+0003f7 6b04
+0003f8 8704
+0003f9 a204
+0003fa be04
+0003fb da04
+0003fc f504
+0003fd 1105
+0003fe 2d05
+0003ff 4805                      	.db 0x04,0x4f , 0x04,0x6b , 0x04,0x87 , 0x04,0xa2 , 0x04,0xbe , 0x04,0xda , 0x04,0xf5 , 0x05,0x11 , 0x05,0x2d , 0x05,0x48
+000400 6405
+000401 8005
+000402 9b05
+000403 b705
+000404 d305
+000405 ef05
+000406 0a06
+000407 2606
+000408 4206
+000409 5e06                      	.db 0x05,0x64 , 0x05,0x80 , 0x05,0x9b , 0x05,0xb7 , 0x05,0xd3 , 0x05,0xef , 0x06,0x0a , 0x06,0x26 , 0x06,0x42 , 0x06,0x5e
+                                 
+00040a 7906
+00040b 9506
+00040c b106
+00040d cd06
+00040e e806
+00040f 0407
+000410 2007
+000411 3c07
+000412 5707
+000413 7307                      	.db 0x06,0x79 , 0x06,0x95 , 0x06,0xb1 , 0x06,0xcd , 0x06,0xe8 , 0x07,0x04 , 0x07,0x20 , 0x07,0x3c , 0x07,0x57 , 0x07,0x73
+000414 8f07
+000415 ab07
+000416 c707
+000417 e307
+000418 fe07
+000419 1a08
+00041a 3608
+00041b 5208
+00041c 6e08
+00041d 8a08                      	.db 0x07,0x8f , 0x07,0xab , 0x07,0xc7 , 0x07,0xe3 , 0x07,0xfe , 0x08,0x1a , 0x08,0x36 , 0x08,0x52 , 0x08,0x6e , 0x08,0x8a
+                                 
+00041e a608
+00041f c108
+000420 dd08
+000421 f908
+000422 1509
+000423 3109
+000424 4d09
+000425 6909
+000426 8509
+000427 a109                      	.db 0x08,0xa6 , 0x08,0xc1 , 0x08,0xdd , 0x08,0xf9 , 0x09,0x15 , 0x09,0x31 , 0x09,0x4d , 0x09,0x69 , 0x09,0x85 , 0x09,0xa1
+000428 bd09
+000429 d909
+00042a f509
+00042b 110a
+00042c 2d0a
+00042d 490a
+00042e 650a
+00042f 810a
+000430 9d0a
+000431 b90a                      	.db 0x09,0xbd , 0x09,0xd9 , 0x09,0xf5 , 0x0a,0x11 , 0x0a,0x2d , 0x0a,0x49 , 0x0a,0x65 , 0x0a,0x81 , 0x0a,0x9d , 0x0a,0xb9
+                                 
+000432 d50a
+000433 f10a
+000434 0d0b
+000435 290b
+000436 450b
+000437 620b
+000438 7e0b
+000439 9a0b
+00043a b60b
+00043b d20b                      	.db 0x0a,0xd5 , 0x0a,0xf1 , 0x0b,0x0d , 0x0b,0x29 , 0x0b,0x45 , 0x0b,0x62 , 0x0b,0x7e , 0x0b,0x9a , 0x0b,0xb6 , 0x0b,0xd2
+00043c ee0b
+00043d 0b0c
+00043e 270c
+00043f 430c
+000440 5f0c
+000441 7b0c
+000442 980c
+000443 b40c
+000444 d00c
+000445 ec0c                      	.db 0x0b,0xee , 0x0c,0x0b , 0x0c,0x27 , 0x0c,0x43 , 0x0c,0x5f , 0x0c,0x7b , 0x0c,0x98 , 0x0c,0xb4 , 0x0c,0xd0 , 0x0c,0xec
+                                 
+000446 090d
+000447 250d
+000448 410d
+000449 5e0d
+00044a 7a0d
+00044b 960d
+00044c b30d
+00044d cf0d
+00044e ec0d
+00044f 080e                      	.db 0x0d,0x09 , 0x0d,0x25 , 0x0d,0x41 , 0x0d,0x5e , 0x0d,0x7a , 0x0d,0x96 , 0x0d,0xb3 , 0x0d,0xcf , 0x0d,0xec , 0x0e,0x08
+000450 240e
+000451 410e
+000452 5d0e
+000453 7a0e
+000454 960e
+000455 b30e
+000456 cf0e
+000457 ec0e
+000458 080f
+000459 250f                      	.db 0x0e,0x24 , 0x0e,0x41 , 0x0e,0x5d , 0x0e,0x7a , 0x0e,0x96 , 0x0e,0xb3 , 0x0e,0xcf , 0x0e,0xec , 0x0f,0x08 , 0x0f,0x25
+                                 
+00045a 410f
+00045b 5e0f
+00045c 7b0f
+00045d 970f
+00045e b40f
+00045f d10f
+000460 ed0f
+000461 0a10
+000462 2710
+000463 4310                      	.db 0x0f,0x41 , 0x0f,0x5e , 0x0f,0x7b , 0x0f,0x97 , 0x0f,0xb4 , 0x0f,0xd1 , 0x0f,0xed , 0x10,0x0a , 0x10,0x27 , 0x10,0x43
+000464 6010
+000465 7d10
+000466 9910
+000467 b610
+000468 d310
+000469 f010
+00046a 0d11
+00046b 2a11
+00046c 4611
+00046d 6311                      	.db 0x10,0x60 , 0x10,0x7d , 0x10,0x99 , 0x10,0xb6 , 0x10,0xd3 , 0x10,0xf0 , 0x11,0x0d , 0x11,0x2a , 0x11,0x46 , 0x11,0x63
+                                 
+00046e 8011
+00046f 9d11
+000470 ba11
+000471 d711
+000472 f411
+000473 1112
+000474 2e12
+000475 4b12
+000476 6812
+000477 8512                      	.db 0x11,0x80 , 0x11,0x9d , 0x11,0xba , 0x11,0xd7 , 0x11,0xf4 , 0x12,0x11 , 0x12,0x2e , 0x12,0x4b , 0x12,0x68 , 0x12,0x85
+000478 a212
+000479 bf12
+00047a dc12
+00047b fa12
+00047c 1713
+00047d 3413
+00047e 5113
+00047f 6e13
+000480 8c13
+000481 a913                      	.db 0x12,0xa2 , 0x12,0xbf , 0x12,0xdc , 0x12,0xfa , 0x13,0x17 , 0x13,0x34 , 0x13,0x51 , 0x13,0x6e , 0x13,0x8c , 0x13,0xa9
+                                 
+000482 c613
+000483 e413
+000484 0114
+000485 1e14
+000486 3c14
+000487 5914
+000488 7614
+000489 9414
+00048a b114
+00048b cf14                      	.db 0x13,0xc6 , 0x13,0xe4 , 0x14,0x01 , 0x14,0x1e , 0x14,0x3c , 0x14,0x59 , 0x14,0x76 , 0x14,0x94 , 0x14,0xb1 , 0x14,0xcf
+00048c ec14
+00048d 0a15
+00048e 2715
+00048f 4515
+000490 6315
+000491 8015
+000492 9e15
+000493 bb15
+000494 d915
+000495 f715                      	.db 0x14,0xec , 0x15,0x0a , 0x15,0x27 , 0x15,0x45 , 0x15,0x63 , 0x15,0x80 , 0x15,0x9e , 0x15,0xbb , 0x15,0xd9 , 0x15,0xf7
+                                 
+000496 1516
+000497 3216
+000498 5016
+000499 6e16
+00049a 8c16
+00049b aa16
+00049c c816
+00049d e516
+00049e 0317
+00049f 2117                      	.db 0x16,0x15 , 0x16,0x32 , 0x16,0x50 , 0x16,0x6e , 0x16,0x8c , 0x16,0xaa , 0x16,0xc8 , 0x16,0xe5 , 0x17,0x03 , 0x17,0x21
+0004a0 3f17
+0004a1 5d17
+0004a2 7b17
+0004a3 9a17
+0004a4 b817
+0004a5 d617
+0004a6 f417
+0004a7 1218
+0004a8 3018
+0004a9 4f18                      	.db 0x17,0x3f , 0x17,0x5d , 0x17,0x7b , 0x17,0x9a , 0x17,0xb8 , 0x17,0xd6 , 0x17,0xf4 , 0x18,0x12 , 0x18,0x30 , 0x18,0x4f
+                                 
+0004aa 6d18
+0004ab 8b18
+0004ac a918
+0004ad c818
+0004ae e618
+0004af 0519
+0004b0 2319
+0004b1 4119
+0004b2 6019
+0004b3 7f19                      	.db 0x18,0x6d , 0x18,0x8b , 0x18,0xa9 , 0x18,0xc8 , 0x18,0xe6 , 0x19,0x05 , 0x19,0x23 , 0x19,0x41 , 0x19,0x60 , 0x19,0x7f
+0004b4 9d19
+0004b5 bc19
+0004b6 da19
+0004b7 f919
+0004b8 181a
+0004b9 361a
+0004ba 551a
+0004bb 741a
+0004bc 931a
+0004bd b21a                      	.db 0x19,0x9d , 0x19,0xbc , 0x19,0xda , 0x19,0xf9 , 0x1a,0x18 , 0x1a,0x36 , 0x1a,0x55 , 0x1a,0x74 , 0x1a,0x93 , 0x1a,0xb2
+                                 
+0004be d01a
+0004bf ef1a
+0004c0 0e1b
+0004c1 2d1b
+0004c2 4c1b
+0004c3 6b1b
+0004c4 8a1b
+0004c5 a91b
+0004c6 c91b
+0004c7 e81b                      	.db 0x1a,0xd0 , 0x1a,0xef , 0x1b,0x0e , 0x1b,0x2d , 0x1b,0x4c , 0x1b,0x6b , 0x1b,0x8a , 0x1b,0xa9 , 0x1b,0xc9 , 0x1b,0xe8
+0004c8 071c
+0004c9 261c
+0004ca 461c
+0004cb 651c
+0004cc 841c
+0004cd a41c
+0004ce c31c
+0004cf e31c
+0004d0 021d
+0004d1 221d                      	.db 0x1c,0x07 , 0x1c,0x26 , 0x1c,0x46 , 0x1c,0x65 , 0x1c,0x84 , 0x1c,0xa4 , 0x1c,0xc3 , 0x1c,0xe3 , 0x1d,0x02 , 0x1d,0x22
+                                 
+0004d2 411d
+0004d3 611d
+0004d4 801d
+0004d5 a01d
+0004d6 c01d
+0004d7 e01d
+0004d8 001e
+0004d9 1f1e
+0004da 3f1e
+0004db 5f1e                      	.db 0x1d,0x41 , 0x1d,0x61 , 0x1d,0x80 , 0x1d,0xa0 , 0x1d,0xc0 , 0x1d,0xe0 , 0x1e,0x00 , 0x1e,0x1f , 0x1e,0x3f , 0x1e,0x5f
+0004dc 7f1e
+0004dd 9f1e
+0004de bf1e
+0004df df1e
+0004e0 ff1e
+0004e1 201f
+0004e2 401f
+0004e3 601f
+0004e4 801f
+0004e5 a11f                      	.db 0x1e,0x7f , 0x1e,0x9f , 0x1e,0xbf , 0x1e,0xdf , 0x1e,0xff , 0x1f,0x20 , 0x1f,0x40 , 0x1f,0x60 , 0x1f,0x80 , 0x1f,0xa1
+                                 
+0004e6 c11f
+0004e7 e21f
+0004e8 0220
+0004e9 2320
+0004ea 4320
+0004eb 6420
+0004ec 8520
+0004ed a520
+0004ee c620
+0004ef e720                      	.db 0x1f,0xc1 , 0x1f,0xe2 , 0x20,0x02 , 0x20,0x23 , 0x20,0x43 , 0x20,0x64 , 0x20,0x85 , 0x20,0xa5 , 0x20,0xc6 , 0x20,0xe7
+0004f0 0821
+0004f1 2921
+0004f2 4a21
+0004f3 6b21
+0004f4 8c21
+0004f5 ad21
+0004f6 ce21
+0004f7 ef21
+0004f8 1022
+0004f9 3222                      	.db 0x21,0x08 , 0x21,0x29 , 0x21,0x4a , 0x21,0x6b , 0x21,0x8c , 0x21,0xad , 0x21,0xce , 0x21,0xef , 0x22,0x10 , 0x22,0x32
+                                 
+0004fa 5322
+0004fb 7522
+0004fc 9622
+0004fd b822
+0004fe d922
+0004ff fb22
+000500 1c23
+000501 3e23
+000502 6023
+000503 8223                      	.db 0x22,0x53 , 0x22,0x75 , 0x22,0x96 , 0x22,0xb8 , 0x22,0xd9 , 0x22,0xfb , 0x23,0x1c , 0x23,0x3e , 0x23,0x60 , 0x23,0x82
+000504 a423
+000505 c623
+000506 e823
+000507 0a24
+000508 2c24
+000509 4e24
+00050a 7024
+00050b 9324
+00050c b524
+00050d d724                      	.db 0x23,0xa4 , 0x23,0xc6 , 0x23,0xe8 , 0x24,0x0a , 0x24,0x2c , 0x24,0x4e , 0x24,0x70 , 0x24,0x93 , 0x24,0xb5 , 0x24,0xd7
+                                 
+00050e fa24
+00050f 1c25
+000510 3f25
+000511 6225
+000512 8425
+000513 a725
+000514 ca25
+000515 ed25
+000516 1026
+000517 3326                      	.db 0x24,0xfa , 0x25,0x1c , 0x25,0x3f , 0x25,0x62 , 0x25,0x84 , 0x25,0xa7 , 0x25,0xca , 0x25,0xed , 0x26,0x10 , 0x26,0x33
+000518 5626
+000519 7926
+00051a 9c26
+00051b c026
+00051c e326
+00051d 0727
+00051e 2a27
+00051f 4e27
+000520 7127
+000521 9527                      	.db 0x26,0x56 , 0x26,0x79 , 0x26,0x9c , 0x26,0xc0 , 0x26,0xe3 , 0x27,0x07 , 0x27,0x2a , 0x27,0x4e , 0x27,0x71 , 0x27,0x95
+                                 
+000522 b927
+000523 dd27
+000524 0128
+000525 2528
+000526 4928
+000527 6d28
+000528 9128
+000529 b628
+00052a da28
+00052b ff28                      	.db 0x27,0xb9 , 0x27,0xdd , 0x28,0x01 , 0x28,0x25 , 0x28,0x49 , 0x28,0x6d , 0x28,0x91 , 0x28,0xb6 , 0x28,0xda , 0x28,0xff
+00052c 2329
+00052d 4829
+00052e 6d29
+00052f 9129
+000530 b629
+000531 db29
+000532 002a
+000533 252a
+000534 4b2a
+000535 702a                      	.db 0x29,0x23 , 0x29,0x48 , 0x29,0x6d , 0x29,0x91 , 0x29,0xb6 , 0x29,0xdb , 0x2a,0x00 , 0x2a,0x25 , 0x2a,0x4b , 0x2a,0x70
+                                 
+000536 952a
+000537 bb2a
+000538 e02a
+000539 062b
+00053a 2c2b
+00053b 522b
+00053c 782b
+00053d 9e2b
+00053e c42b
+00053f ea2b                      	.db 0x2a,0x95 , 0x2a,0xbb , 0x2a,0xe0 , 0x2b,0x06 , 0x2b,0x2c , 0x2b,0x52 , 0x2b,0x78 , 0x2b,0x9e , 0x2b,0xc4 , 0x2b,0xea
+000540 102c
+000541 372c
+000542 5d2c
+000543 842c
+000544 ab2c
+000545 d22c
+000546 f82c
+000547 1f2d
+000548 472d
+000549 6e2d                      	.db 0x2c,0x10 , 0x2c,0x37 , 0x2c,0x5d , 0x2c,0x84 , 0x2c,0xab , 0x2c,0xd2 , 0x2c,0xf8 , 0x2d,0x1f , 0x2d,0x47 , 0x2d,0x6e
+                                 
+00054a 952d
+00054b bd2d
+00054c e42d
+00054d 0c2e
+00054e 342e
+00054f 5c2e
+000550 842e
+000551 ac2e
+000552 d42e
+000553 fc2e                      	.db 0x2d,0x95 , 0x2d,0xbd , 0x2d,0xe4 , 0x2e,0x0c , 0x2e,0x34 , 0x2e,0x5c , 0x2e,0x84 , 0x2e,0xac , 0x2e,0xd4 , 0x2e,0xfc
+000554 252f
+000555 4d2f
+000556 762f
+000557 9f2f
+000558 c82f
+000559 f12f
+00055a 1a30
+00055b 4430
+00055c 6d30
+00055d 9730                      	.db 0x2f,0x25 , 0x2f,0x4d , 0x2f,0x76 , 0x2f,0x9f , 0x2f,0xc8 , 0x2f,0xf1 , 0x30,0x1a , 0x30,0x44 , 0x30,0x6d , 0x30,0x97
+                                 
+00055e c030
+00055f ea30
+000560 1431
+000561 3e31
+000562 6931
+000563 9331
+000564 be31
+000565 e931
+000566 1332
+000567 3e31                      	.db 0x30,0xc0 , 0x30,0xea , 0x31,0x14 , 0x31,0x3e , 0x31,0x69 , 0x31,0x93 , 0x31,0xbe , 0x31,0xe9 , 0x32,0x13 , 0x31,0x3e
+000568 6a32
+000569 9532
+00056a 7532
+00056b ec32
+00056c 1833
+00056d 4433
+00056e 7033
+00056f 9c33
+000570 c933
+000571 f633                      	.db 0x32,0x6a , 0x32,0x95 , 0x32,0x75 , 0x32,0xec , 0x33,0x18 , 0x33,0x44 , 0x33,0x70 , 0x33,0x9c , 0x33,0xc9 , 0x33,0xf6
+                                 
+000572 2234
+000573 4f34
+000574 7d34
+000575 aa34
+000576 d834
+000577 0535
+000578 3335
+000579 6135
+00057a 9035
+00057b be35                      	.db 0x34,0x22 , 0x34,0x4f , 0x34,0x7d , 0x34,0xaa , 0x34,0xd8 , 0x35,0x05 , 0x35,0x33 , 0x35,0x61 , 0x35,0x90 , 0x35,0xbe
+00057c ed35
+00057d 1c36
+00057e 4b36
+00057f 7a36
+000580 aa36
+000581 da36
+000582 0a37
+000583 3a37
+000584 6a37
+000585 9b37                      	.db 0x35,0xed , 0x36,0x1c , 0x36,0x4b , 0x36,0x7a , 0x36,0xaa , 0x36,0xda , 0x37,0x0a , 0x37,0x3a , 0x37,0x6a , 0x37,0x9b
+                                 
+000586 cc37
+000587 fd37
+000588 2f38
+000589 6038
+00058a 9238
+00058b c438
+00058c f738
+00058d 2939
+00058e 5c39
+00058f 9039                      	.db 0x37,0xcc , 0x37,0xfd , 0x38,0x2f , 0x38,0x60 , 0x38,0x92 , 0x38,0xc4 , 0x38,0xf7 , 0x39,0x29 , 0x39,0x5c , 0x39,0x90
+000590 c339
+000591 f739
+000592 2b3a
+000593 603a
+000594 943a
+000595 c93a
+000596 ff3a
+000597 343b
+000598 6b3b
+000599 a13b                      	.db 0x39,0xc3 , 0x39,0xf7 , 0x3a,0x2b , 0x3a,0x60 , 0x3a,0x94 , 0x3a,0xc9 , 0x3a,0xff , 0x3b,0x34 , 0x3b,0x6b , 0x3b,0xa1
+                                 
+00059a d83b
+00059b 0f3c
+00059c 463c
+00059d 7e3c
+00059e b63c
+00059f ef3c
+0005a0 283d
+0005a1 613d
+0005a2 9b3d
+0005a3 d53d                      	.db 0x3b,0xd8 , 0x3c,0x0f , 0x3c,0x46 , 0x3c,0x7e , 0x3c,0xb6 , 0x3c,0xef , 0x3d,0x28 , 0x3d,0x61 , 0x3d,0x9b , 0x3d,0xd5
+0005a4 0f3e
+0005a5 4b3e
+0005a6 863e
+0005a7 c23e
+0005a8 ff3e
+0005a9 3c3f
+0005aa 793f
+0005ab b73f
+0005ac f63f
+0005ad 3540                      	.db 0x3e,0x0f , 0x3e,0x4b , 0x3e,0x86 , 0x3e,0xc2 , 0x3e,0xff , 0x3f,0x3c , 0x3f,0x79 , 0x3f,0xb7 , 0x3f,0xf6 , 0x40,0x35
+                                 
+0005ae 7440
+0005af b540
+0005b0 f540
+0005b1 3741
+0005b2 7941
+0005b3 bc41
+0005b4 ff41
+0005b5 4342
+0005b6 8842
+0005b7 ce42                      	.db 0x40,0x74 , 0x40,0xb5 , 0x40,0xf5 , 0x41,0x37 , 0x41,0x79 , 0x41,0xbc , 0x41,0xff , 0x42,0x43 , 0x42,0x88 , 0x42,0xce
+0005b8 1443
+0005b9 5b43
+0005ba a343
+0005bb ec43
+0005bc 3644
+0005bd 8144
+0005be cd44
+0005bf 1945
+0005c0 6745
+0005c1 b645                      	.db 0x43,0x14 , 0x43,0x5b , 0x43,0xa3 , 0x43,0xec , 0x44,0x36 , 0x44,0x81 , 0x44,0xcd , 0x45,0x19 , 0x45,0x67 , 0x45,0xb6
+                                 
+0005c2 0646
+0005c3 5846
+0005c4 aa46
+0005c5 fe46
+0005c6 5447
+0005c7 aa47
+0005c8 0348
+0005c9 5d48
+0005ca b948
+0005cb 1749                      	.db 0x46,0x06 , 0x46,0x58 , 0x46,0xaa , 0x46,0xfe , 0x47,0x54 , 0x47,0xaa , 0x48,0x03 , 0x48,0x5d , 0x48,0xb9 , 0x49,0x17
+0005cc 7749
+0005cd d949
+0005ce 3d4a
+0005cf a44a
+0005d0 0d4b
+0005d1 794b
+0005d2 e94b
+0005d3 5c4c
+0005d4 d34c
+0005d5 4e4d                      	.db 0x49,0x77 , 0x49,0xd9 , 0x4a,0x3d , 0x4a,0xa4 , 0x4b,0x0d , 0x4b,0x79 , 0x4b,0xe9 , 0x4c,0x5c , 0x4c,0xd3 , 0x4d,0x4e
+                                 
+0005d6 ce4d
+0005d7 544e
+0005d8 df4e
+0005d9 724f
+0005da 0d50
+0005db b150
+0005dc 6351
+0005dd 2352
+0005de f852
+0005df e953                      	.db 0x4d,0xce , 0x4e,0x54 , 0x4e,0xdf , 0x4f,0x72 , 0x50,0x0d , 0x50,0xb1 , 0x51,0x63 , 0x52,0x23 , 0x52,0xf8 , 0x53,0xe9
+0005e0 0755
+0005e1 7c56
+0005e2 005a                      	.db 0x55,0x07 , 0x56,0x7c , 0x5a,0x00
+                                 LOOK_up:
+0005e3 005a                      	.db 0x5a,0x00
+                                 
+                                 .DSEG
+                                 buffer:
+000100                           	.byte	80
+                                 digit4:
+000150 04                        	.db 	4
+                                 
+                                 RawAccelBuffer: 
+000151                           	.byte 14
+                                 
+                                 Ang_F_X: 
+00015f                           	.byte 2
+                                 Ang_F_Y: 
+000161                           	.byte 2
+                                 
+                                 
+                                 Integral:
+000163                           	.byte 2
+                                 
+                                 Prev_Error:
+000165                           	.byte 2
+                                 
+                                 
+                                 P_Ang_GY_X:
+000167                           	.byte 2
+                                 P_Ang_GY_Y:
+000169                           	.byte 2
+                                 P_Ang_AC_X:
+00016b                           	.byte 2
+                                 P_Ang_AC_Y:
+00016d                           	.byte 2
+                                 
+                                 HARD_RE:
+00016f                           	.byte 1
+                                 RUN_ROT:
+
+
+RESOURCE USE INFORMATION
+------------------------
+
+Notice:
+The register and instruction counts are symbol table hit counts,
+and hence implicitly used resources are not counted, eg, the
+'lpm' instruction without operands implicitly uses r0 and z,
+none of which are counted.
+
+x,y,z are separate entities in the symbol table and are
+counted separately from r26..r31 here.
+
+.dseg memory usage only counts static data declared with .byte
+
+"ATmega128" register use summary:
+x  :  49 y  :  37 z  :   5 r0 :  17 r1 :  11 r2 :   2 r3 :   2 r4 :  88 
+r5 :  93 r6 :   8 r7 :   8 r8 :   8 r9 :   8 r10:   8 r11:  12 r12:   2 
+r13:   2 r14:  21 r15:  21 r16: 253 r17:  18 r18:  29 r19:  28 r20:  17 
+r21:  13 r22:   2 r23:   8 r24:  45 r25:  11 r26:   6 r27:   6 r28:  26 
+r29:  26 r30:   9 r31:   9 
+Registers used: 35 out of 35 (100.0%)
+
+"ATmega128" instruction use summary:
+.lds  :   0 .sts  :   0 adc   :  28 add   :  28 adiw  :   0 and   :   0 
+andi  :   1 asr   :  33 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :   5 brge  :   1 brhc  :   0 
+brhs  :   0 brid  :   0 brie  :   0 brlo  :   2 brlt  :   1 brmi  :   0 
+brne  :  16 brpl  :   0 brsh  :   2 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   1 cbi   :   0 cbr   :   0 
+clc   :   0 clh   :   0 cli   :   7 cln   :   0 clr   :  27 cls   :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :  18 cp    :   6 cpc   :   4 
+cpi   :  11 cpse  :   0 dec   :   4 elpm  :   0 eor   :   0 fmul  :   0 
+fmuls :   0 fmulsu:   0 icall :   0 ijmp  :   0 in    :   6 inc   :   3 
+jmp   :   5 ld    :  39 ldd   :   0 ldi   : 161 lds   :   5 lpm   :   6 
+lsl   :   2 lsr   :   1 mov   :  43 movw  :   0 mul   :   0 muls  :   0 
+mulsu :   0 neg   :   0 nop   :   0 or    :   0 ori   :   6 out   :  44 
+pop   :  45 push  :  45 rcall :  53 ret   :  25 reti  :   5 rjmp  :  25 
+rol   :   2 ror   :  34 sbc   :   4 sbci  :   0 sbi   :   0 sbic  :   0 
+sbis  :   0 sbiw  :   2 sbr   :   0 sbrc  :   6 sbrs  :   1 sec   :   0 
+seh   :   0 sei   :   9 sen   :   0 ser   :   0 ses   :   0 set   :   0 
+sev   :   0 sez   :   0 sleep :   0 spm   :   0 st    :  48 std   :   0 
+sts   :  28 sub   :   4 subi  :   0 swap  :   0 tst   :   5 wdr   :   0 
+
+Instructions used: 47 out of 114 (41.2%)
+
+"ATmega128" memory use summary [bytes]:
+Segment   Begin    End      Code   Data   Used    Size   Use%
+---------------------------------------------------------------
+[.cseg] 0x000000 0x000bc8   1788   1108   2896  131072   2.2%
+[.dseg] 0x000100 0x000171      0    113    113    4096   2.8%
+[.eseg] 0x000000 0x000000      0      0      0    4096   0.0%
+
+Assembly complete, 0 errors, 0 warnings
